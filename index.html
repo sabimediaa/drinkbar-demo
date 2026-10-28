@@ -1,0 +1,1779 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ditt företag</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&family=Outfit:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: burgundy top bar, peach-cream heroes, off-white content sheets with burgundy accents; admin is a separate sidebar app on a warm ground. */
+:root{
+  --sky:#FFECCE;
+  --sky-deep:#8A2338;
+  --ink:#3E000D;
+  --ink-soft:#6F4A50;
+  --paper:#FBFBFB;
+  --mist:#F6EEE3;
+  --line:#EBDDD0;
+  --rose:#E98A6B;
+  --ok:#1F8A57;
+  --ok-bg:#E2F5EA;
+  --warn:#9A5B00;
+  --warn-bg:#FFF1D6;
+  --new-bg:#F9E4E2;
+  --done:#7A6A64;
+  --done-bg:#EFE8E3;
+  --bad:#B4344A;
+  --bad-bg:#FDE7EA;
+  --closed:#C9BFB2;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --body:"Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sky-deep)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;border:0;border-radius:999px;padding:.95rem 1.6rem;font:600 1rem var(--body);cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;text-decoration:none}
+.btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--sky-deep);outline-offset:3px}
+.btn-ink{background:var(--ink);color:var(--paper);box-shadow:0 10px 24px -10px rgba(62,0,13,.6)}
+.btn-ghost{background:rgba(255,255,255,.3);color:var(--ink);box-shadow:inset 0 0 0 1.5px rgba(62,0,13,.25)}
+.btn-sky{background:var(--sky);color:var(--ink)}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.drink{display:block;aspect-ratio:1}
+.drink svg,.drink .photo{width:100%;height:100%;display:block;object-fit:cover;border-radius:50%;user-select:none}
+
+/* ---------- Logo ---------- */
+.logo{width:48px;height:48px;border-radius:50%;background:var(--sky);color:var(--ink);box-shadow:0 0 0 3px var(--paper);flex:none;display:grid;place-items:center;font-family:var(--display);font-style:italic;font-weight:700;font-size:1.5rem;line-height:1}
+.side .logo{width:40px;height:40px;font-size:1.25rem}
+.logo-foot{width:96px;height:96px;font-size:3rem}
+
+/* ---------- Top bar ---------- */
+.top{background:var(--ink);color:var(--paper);position:relative;z-index:5;box-shadow:0 10px 30px -18px rgba(62,0,13,.8)}
+.top .brand{color:var(--sky);font-size:1.65rem;letter-spacing:.01em}
+.top .logo{width:54px;height:54px;box-shadow:0 0 0 3px var(--sky)}
+nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:1.2rem}
+.brand{display:flex;align-items:center;gap:.7rem;font-family:var(--display);font-style:italic;font-size:1.5rem;font-weight:700;color:var(--ink);text-decoration:none}
+.navlinks{display:flex;gap:.2rem;font-weight:500}
+.navlinks a{text-decoration:none;padding:.5rem .85rem;border-radius:999px;transition:background .2s, color .2s;color:var(--paper);opacity:.85;white-space:nowrap}
+.navlinks a:hover{background:rgba(255,255,255,.1);opacity:1}
+.navlinks a.on{background:var(--sky);color:var(--ink);opacity:1}
+.nav-actions{display:flex;align-items:center;gap:.5rem}
+.admin-pill{display:inline-flex;align-items:center;gap:.45rem;text-decoration:none;font-weight:600;padding:.6rem 1rem;border-radius:999px;color:var(--paper);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35);transition:transform .2s ease, background .2s ease}
+.admin-pill:hover{transform:translateY(-2px);background:rgba(255,255,255,.1)}
+.book-pill{display:inline-flex;align-items:center;gap:.4rem;background:var(--sky);color:var(--ink);border-radius:999px;padding:.6rem 1.1rem;font-weight:600;text-decoration:none;box-shadow:0 8px 20px -12px rgba(0,0,0,.5);transition:transform .2s ease}
+.book-pill:hover{transform:translateY(-2px)}
+@media (max-width:520px){.admin-pill{padding:.6rem .75rem}.admin-pill span{display:none}}
+
+/* ---------- Hero (home) ---------- */
+.hero{background:var(--sky);position:relative;overflow:hidden;padding-bottom:7rem}
+.hero::before{content:"";position:absolute;inset:auto -10% -40% -10%;height:70%;background:radial-gradient(closest-side, rgba(255,255,255,.4), transparent);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:2rem;padding-top:2.75rem;position:relative}
+.hero-copy{display:flex;flex-direction:column;gap:1.6rem;min-width:0}
+.hero h1{font-size:clamp(2.6rem, 6.2vw, 5.2rem);line-height:.98}
+.hero h1 em,.page-hero h1 em{font-style:italic;font-weight:500;color:var(--sky-deep)}
+.hero-copy p{font-size:1.15rem;max-width:31rem}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.8rem}
+.trust{display:flex;flex-wrap:wrap;gap:1.6rem;font-size:.92rem;font-weight:500}
+.trust div{display:flex;flex-direction:column}
+.trust strong{font-family:var(--display);font-size:1.6rem;line-height:1.1}
+.hero-art{position:relative;aspect-ratio:1;width:min(520px,100%);justify-self:center}
+.hero-art .d1{position:absolute;width:62%;left:16%;top:10%;filter:drop-shadow(0 30px 40px rgba(62,0,13,.28));animation:float 6s ease-in-out infinite}
+.hero-art .d2{position:absolute;width:34%;right:0;bottom:6%;filter:drop-shadow(0 18px 24px rgba(62,0,13,.25));animation:float 6s ease-in-out -2s infinite}
+.hero-art .d3{position:absolute;width:28%;left:2%;bottom:10%;filter:drop-shadow(0 18px 24px rgba(62,0,13,.25));animation:float 6s ease-in-out -4s infinite}
+.hero-badge{position:absolute;top:2%;right:4%;width:clamp(110px,26%,140px);aspect-ratio:1;border-radius:50%;background:var(--paper);display:grid;place-items:center;text-align:center;transform:rotate(10deg);box-shadow:0 14px 30px -14px rgba(62,0,13,.55);padding:.6rem}
+.hero-badge span{display:block;font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.hero-badge strong{display:block;font-family:var(--display);font-style:italic;font-size:1.5rem;line-height:1.05;margin:.15rem 0}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(3deg)}}
+.wave{position:absolute;left:0;right:0;bottom:-1px;height:90px;width:100%;display:block}
+
+/* ---------- Page hero ---------- */
+.page-hero{background:var(--sky);position:relative;overflow:hidden;padding-block:2.75rem 6.5rem}
+.page-hero .wrap{display:flex;flex-direction:column;gap:1rem;position:relative}
+.page-hero .eyebrow{color:var(--ink);opacity:.7}
+.page-hero h1{font-size:clamp(2.4rem,5.5vw,4.4rem);line-height:1}
+.page-hero p{max-width:36rem;font-size:1.1rem}
+.page-hero .deco{position:absolute;right:max(16px, env(safe-area-inset-right, 0px));bottom:-1.5rem;width:clamp(110px,18vw,200px);filter:drop-shadow(0 20px 26px rgba(62,0,13,.25));animation:float 7s ease-in-out infinite}
+
+/* ---------- Marquee ---------- */
+.strip{background:var(--ink);color:var(--paper);overflow:hidden;white-space:nowrap;padding-block:.9rem;font-family:var(--display);font-style:italic;font-size:1.25rem}
+.strip-track{display:inline-flex;gap:2.5rem;animation:slide 32s linear infinite;padding-left:2.5rem}
+.strip-track span::after{content:"✦";margin-left:2.5rem;font-style:normal;color:var(--sky)}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ---------- Sections ---------- */
+.sec{padding-block:5rem}
+.sec.tight{padding-block:3rem 5rem}
+.sec.mist{background:var(--mist)}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.2rem}
+.section-head h2{font-size:clamp(2rem,4vw,3rem);line-height:1.05;margin-top:.4rem}
+.hint{font-size:.9rem;color:var(--ink-soft);margin-top:.5rem}
+.link-arrow{font-weight:600;text-decoration:none;border-bottom:2px solid var(--sky-deep);padding-bottom:2px}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap}
+.chip{border-radius:999px;padding:.5rem 1rem;font-weight:500;font-size:.92rem;background:var(--mist);color:var(--ink-soft);border:0;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--paper)}
+
+/* ---------- Three bars ---------- */
+.bars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
+.bar-card{border-radius:28px;padding:1.8rem;display:flex;flex-direction:column;gap:1rem;text-decoration:none;transition:transform .25s ease, box-shadow .25s ease;min-width:0}
+.bar-card:hover{transform:translateY(-4px);box-shadow:0 24px 40px -24px rgba(62,0,13,.4)}
+.bar-card .drink{width:96px}
+.bar-card h3{font-size:1.7rem}
+.bar-card p{opacity:.85}
+.bar-card .link-arrow{margin-top:auto;align-self:flex-start;border-color:currentColor}
+.bc-kaffe{background:#FFECCE}
+.bc-matcha{background:#E3EBD0}
+.bc-mocktail{background:#F7D3C4}
+
+/* ---------- Ways to find us ---------- */
+.ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem;margin:2.4rem 0 0;list-style:none;padding:0}
+.ways li{display:flex;flex-direction:column;gap:.6rem;border-top:2px solid var(--ink);padding-top:1.2rem}
+.ways .n{font-family:var(--display);font-style:italic;color:var(--sky-deep);font-weight:700}
+.ways h3{font-size:1.4rem}
+.ways p{color:var(--ink-soft);max-width:32ch}
+.ways a{margin-top:.3rem;align-self:flex-start}
+
+/* ---------- Menu cards ---------- */
+.menu{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem}
+.menu.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.item{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:1rem 1rem 1.2rem;display:flex;flex-direction:column;gap:.7rem;transition:transform .25s ease, box-shadow .25s ease;cursor:pointer;min-width:0}
+.item:hover{transform:translateY(-4px);box-shadow:0 24px 40px -24px rgba(62,0,13,.35)}
+.item.out{opacity:.65}
+.item-art{background:var(--mist);border-radius:18px;aspect-ratio:1/.82;display:grid;place-items:center;position:relative;margin-bottom:.2rem}
+.item-art .drink{width:62%;filter:drop-shadow(0 14px 16px rgba(62,0,13,.2));transition:transform .4s ease}
+.item:hover .item-art .drink{transform:rotate(-8deg) scale(1.05)}
+.tag{position:absolute;z-index:2;top:.7rem;left:.7rem;background:var(--paper);color:var(--ink);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.3rem .65rem;border-radius:999px}
+.tag.new{background:var(--sky-deep);color:var(--paper)}
+.info-btn{position:absolute;z-index:2;top:.7rem;right:.7rem;display:inline-flex;align-items:center;gap:.35rem;background:var(--paper);font-size:.75rem;font-weight:600;padding:.3rem .7rem .3rem .4rem;border-radius:999px;box-shadow:0 4px 12px -6px rgba(62,0,13,.35)}
+.info-btn i{font-style:normal;width:18px;height:18px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--display);font-size:.72rem}
+.kind{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--sky-deep)}
+.item h3{font-size:1.25rem;line-height:1.15}
+.item p{font-size:.9rem;color:var(--ink-soft);min-height:2.8em}
+.item-foot{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:auto;padding-top:.3rem}
+.price{font-family:var(--display);font-weight:700;font-size:1.25rem}
+.price small{font-family:var(--body);font-weight:500;font-size:.8rem;color:var(--ink-soft)}
+.soldout{font-size:.78rem;font-weight:600;background:var(--done-bg);color:var(--done);padding:.3rem .7rem;border-radius:999px;white-space:nowrap}
+.menu-note{display:flex;gap:1rem;align-items:center;background:var(--mist);border-radius:20px;padding:1rem 1.2rem;margin-bottom:1.6rem;font-size:.95rem}
+.menu-note b{font-family:var(--display);font-size:1.1rem}
+
+/* ---------- Pop-ups ---------- */
+.pops{display:flex;flex-direction:column;gap:1rem}
+.pop{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:1.4rem;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:1.1rem 1.3rem}
+.pop-date{background:var(--ink);color:var(--paper);border-radius:18px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.pop-date small{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;opacity:.75}
+.pop-date strong{font-family:var(--display);font-size:2.2rem;margin:.15rem 0}
+.pop-date span{font-size:.78rem;font-weight:600;color:var(--sky)}
+.pop-body{display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.pop-body h3{font-size:1.35rem;line-height:1.15}
+.pop-meta{display:flex;flex-wrap:wrap;gap:.4rem 1rem;color:var(--ink-soft);font-size:.92rem}
+.pop-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.2rem}
+.pop-tags span{background:var(--mist);border-radius:999px;padding:.2rem .7rem;font-size:.78rem;font-weight:600}
+.pop .btn{padding:.7rem 1.1rem;font-size:.9rem}
+.pop.next{border-color:var(--sky-deep);box-shadow:0 0 0 2px var(--sky)}
+.pop-empty{color:var(--ink-soft);background:var(--mist);border-radius:20px;padding:1.4rem}
+
+/* ---------- CTA band ---------- */
+.band{background:var(--ink);color:var(--paper);border-radius:32px;padding:clamp(1.8rem,4vw,3rem);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:center;position:relative;overflow:hidden}
+.band h2{font-size:clamp(1.8rem,3.6vw,2.8rem);line-height:1.05}
+.band h2 em{color:var(--sky);font-weight:500}
+.band p{opacity:.8;margin-top:.7rem;max-width:34rem}
+
+/* ---------- Packages ---------- */
+.pk-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem}
+.pk{background:var(--paper);border-radius:28px;padding:1.6rem;display:flex;flex-direction:column;gap:1rem;border:1px solid var(--line);min-width:0}
+.pk.feature{background:var(--sky);border-color:transparent}
+.pk-icons{display:flex;gap:.3rem;min-height:64px;align-items:center}
+.pk-icons .drink{width:58px}
+.pk h3{font-size:1.5rem}
+.pk p{color:var(--ink-soft);font-size:.95rem}
+.pk.feature p{color:var(--ink)}
+.pk ul{margin:0;padding:0 0 0 1.1rem;font-size:.92rem;display:flex;flex-direction:column;gap:.2rem}
+.pk-price{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;margin-top:auto;border-top:1px solid var(--line);padding-top:1rem}
+.pk.feature .pk-price{border-color:rgba(62,0,13,.18)}
+.pk-price strong{font-family:var(--display);font-size:1.7rem}
+.pk-price span{font-size:.85rem;color:var(--ink-soft)}
+.pk .btn{justify-content:center;padding:.75rem 1rem;font-size:.92rem}
+
+/* ---------- Steps ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem;margin:2.4rem 0 0;list-style:none;padding:0}
+.steps li{display:flex;flex-direction:column;gap:.6rem;border-top:2px solid var(--ink);padding-top:1.2rem}
+.steps .n{font-family:var(--display);font-style:italic;color:var(--sky-deep);font-weight:700}
+.steps h3{font-size:1.4rem}
+.steps p{color:var(--ink-soft);max-width:30ch}
+
+/* ---------- Booking ---------- */
+.catering{background:var(--ink);color:var(--paper);padding-block:5.5rem;position:relative;overflow:hidden}
+.catering::after{content:"";position:absolute;width:520px;height:520px;right:-180px;top:-180px;border-radius:50%;background:radial-gradient(closest-side, rgba(255,236,206,.28), transparent);pointer-events:none}
+.cat-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:start;position:relative;z-index:1}
+.cat-copy{display:flex;flex-direction:column;gap:1.4rem;min-width:0}
+.catering .eyebrow{color:var(--sky)}
+.catering h2{font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:1.02}
+.catering h2 em{font-style:italic;font-weight:500;color:var(--sky)}
+.cat-copy > p{font-size:1.1rem;opacity:.85;max-width:34rem}
+.occasions{display:flex;flex-wrap:wrap;gap:.5rem}
+.occasions button{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:.45rem 1rem;font-size:.92rem;font-weight:500;background:transparent;color:var(--paper);cursor:pointer}
+.occasions button.on{background:var(--sky);color:var(--ink);border-color:var(--sky)}
+.perks{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 1.6rem;list-style:none;margin:0;padding:0}
+.perks li{display:flex;flex-direction:column;gap:.2rem;border-top:1px solid rgba(255,255,255,.18);padding-top:.9rem}
+.perks strong{font-family:var(--display);font-size:1.15rem}
+.perks span{font-size:.92rem;opacity:.72}
+.quote{background:var(--paper);color:var(--ink);border-radius:28px;padding:1.8rem;display:flex;flex-direction:column;gap:1.1rem;box-shadow:0 40px 70px -35px rgba(0,0,0,.6);min-width:0}
+.quote-head{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.quote h3{font-size:1.5rem}
+.quote-head .tag{position:static;background:var(--mist);color:var(--sky-deep)}
+.qty-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--sky);border-radius:18px;padding:1rem 1.1rem}
+.qty-row small{display:block;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;opacity:.7}
+.qty-row strong{font-family:var(--display);font-size:1.6rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.stepper{display:flex;align-items:center;gap:.2rem;background:var(--paper);border-radius:999px;padding:.25rem}
+.stepper button{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;font-weight:600;background:var(--sky);border:0;cursor:pointer;font-size:1.05rem}
+.stepper b{min-width:34px;text-align:center;font-variant-numeric:tabular-nums}
+.quote-total{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;font-variant-numeric:tabular-nums;border-top:1px dashed var(--line);padding-top:1rem}
+.quote-total span{color:var(--ink-soft);font-size:.92rem}
+.quote-total strong{font-family:var(--display);font-size:1.8rem;white-space:nowrap}
+.quote .btn{justify-content:center;width:100%}
+.quote .note{font-size:.8rem;text-align:center;color:var(--ink-soft)}
+.qf{display:flex;flex-direction:column;gap:1rem}
+.quote label,.qlabel{display:flex;flex-direction:column;gap:.35rem;font-size:.85rem;font-weight:600;color:var(--ink-soft)}
+.qlabel{flex-direction:row;justify-content:space-between;align-items:baseline}
+.qlabel span{font-weight:400;font-size:.8rem}
+.quote input,.quote select,.quote textarea{font:500 1rem var(--body);color:var(--ink);background:var(--mist);border:1px solid var(--line);border-radius:14px;padding:.75rem .9rem;width:100%;min-width:0}
+.quote textarea{min-height:90px;resize:vertical}
+.quote input:focus,.quote select:focus,.quote textarea:focus{outline:2px solid var(--sky-deep);outline-offset:1px;background:var(--paper)}
+select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%)!important;background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%!important;background-size:6px 6px!important;background-repeat:no-repeat!important;padding-right:2.4rem!important;cursor:pointer}
+.qrow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.cal{border:1px solid var(--line);border-radius:18px;padding:.9rem;margin-top:-.6rem}
+.cal-head{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-family:var(--display);font-size:1.1rem}
+.cal-head button{width:34px;height:34px;border-radius:50%;border:0;background:var(--mist);cursor:pointer;font-size:1.2rem;line-height:1}
+.cal-head button:disabled{opacity:.35;cursor:not-allowed}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:.7rem;text-align:center}
+.cal-dow{font-size:.7rem;color:var(--ink-soft);font-weight:600;letter-spacing:.06em;padding:.2rem 0 .35rem}
+.day{aspect-ratio:1;border:0;border-radius:10px;background:var(--mist);color:var(--ink);font:500 .9rem var(--body);cursor:pointer;font-variant-numeric:tabular-nums;position:relative;padding:0;min-width:0}
+.day:hover:not(:disabled){background:var(--sky)}
+.day.closed{background:transparent;color:var(--closed);cursor:not-allowed}
+.day.booked{background:var(--bad-bg);color:var(--bad);cursor:not-allowed;text-decoration:line-through}
+.day.sel{background:var(--ink);color:var(--paper)}
+.day.today::after{content:"";position:absolute;left:50%;bottom:4px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--sky-deep)}
+.cal-legend{display:flex;flex-wrap:wrap;gap:.4rem .9rem;margin-top:.8rem;font-size:.75rem;color:var(--ink-soft)}
+.cal-legend span{display:inline-flex;align-items:center;gap:.35rem}
+.cal-legend b{width:12px;height:12px;border-radius:4px;display:inline-block}
+.lg-free{background:var(--mist);box-shadow:inset 0 0 0 1px var(--line)}
+.lg-booked{background:var(--bad-bg);box-shadow:inset 0 0 0 1px var(--bad)}
+.lg-closed{background:transparent;box-shadow:inset 0 0 0 1px var(--closed)}
+.lg-sel{background:var(--ink)}
+.cal-picked{font-size:.9rem;font-weight:600;margin-top:-.4rem}
+.cal-picked.none{color:var(--ink-soft);font-weight:400}
+.flav{display:flex;flex-wrap:wrap;gap:.45rem}
+.flav button{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:.4rem .9rem .4rem .45rem;font-size:.9rem;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:.45rem}
+.flav button .drink{width:24px;height:24px}
+.flav button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.qerr{background:var(--bad-bg);color:var(--bad);border-radius:12px;padding:.6rem .9rem;font-size:.9rem;font-weight:500}
+.qthanks{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.9rem;padding:1rem 0}
+.qthanks .drink{width:90px}
+.qthanks h3{font-size:1.6rem}
+.qthanks p{color:var(--ink-soft);font-size:.92rem}
+.qthanks dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.4rem 1rem;width:100%;text-align:left;background:var(--mist);border-radius:16px;padding:1rem 1.1rem;font-size:.92rem}
+.qthanks dt{color:var(--ink-soft)}
+.qthanks dd{margin:0;font-weight:600;text-align:right}
+@media (max-width:520px){.qrow{grid-template-columns:1fr}.cal{padding:.6rem}.day{font-size:.82rem;border-radius:8px}}
+
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:.7rem;max-width:820px}
+.faq details{border:1px solid var(--line);border-radius:18px;padding:1.1rem 1.3rem;background:var(--paper)}
+.faq summary{cursor:pointer;font-family:var(--display);font-size:1.2rem;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--body);font-weight:500;font-size:1.4rem;line-height:1;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin-top:.7rem;color:var(--ink-soft);max-width:65ch}
+
+/* ---------- Kaféet ---------- */
+.cafe{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem;align-items:start}
+.cafe-info{display:flex;flex-direction:column;gap:1.2rem;min-width:0}
+.cafe-addr{background:var(--ink);color:var(--paper);border-radius:28px;padding:1.6rem;display:flex;flex-direction:column;gap:.5rem}
+.cafe-addr small{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--sky)}
+.cafe-addr strong{font-family:var(--display);font-size:1.7rem;line-height:1.1}
+.cafe-addr span{opacity:.8}
+.cafe-addr .btn{align-self:flex-start;margin-top:.6rem}
+.open-now{display:inline-flex;align-items:center;gap:.45rem;font-size:.85rem;font-weight:600;padding:.35rem .8rem;border-radius:999px;align-self:flex-start}
+.open-now::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.open-now.yes{background:var(--ok-bg);color:var(--ok)}
+.open-now.no{background:var(--done-bg);color:var(--done)}
+.hours{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:1.2rem 1.4rem}
+.hours h3{font-size:1.3rem;margin-bottom:.6rem}
+.hours dl{margin:0;display:grid;grid-template-columns:1fr auto;font-variant-numeric:tabular-nums}
+.hours dt,.hours dd{margin:0;padding:.5rem 0;border-bottom:1px solid var(--line)}
+.hours dd{text-align:right;font-weight:500}
+.hours dt:nth-last-of-type(1),.hours dd:last-child{border-bottom:0}
+.hours .today{font-weight:700;color:var(--sky-deep)}
+.hours .shut{color:var(--ink-soft)}
+.map{border-radius:28px;overflow:hidden;background:#E9E4D4;aspect-ratio:1/1;position:relative;border:1px solid var(--line)}
+.map svg{width:100%;height:100%;display:block}
+.map-label{position:absolute;left:50%;top:38%;transform:translate(-50%,-100%);background:var(--ink);color:var(--paper);padding:.5rem .9rem;border-radius:14px;font-weight:600;font-size:.9rem;white-space:nowrap;box-shadow:0 10px 20px -10px rgba(62,0,13,.6)}
+.map-label::after{content:"";position:absolute;left:50%;bottom:-6px;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:var(--ink)}
+
+.soon{background:var(--sky);border-radius:28px;padding:1.6rem;display:flex;flex-direction:column;gap:.7rem}
+.soon h3{font-size:1.6rem;line-height:1.1}
+.soon p{color:var(--ink-soft)}
+.soon ul{margin:0;padding:0 0 0 1.1rem;display:flex;flex-direction:column;gap:.25rem}
+.soon .btn{align-self:flex-start;margin-top:.4rem}
+.open-now.soon-pill{background:var(--sky);color:var(--sky-deep)}
+.status-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;background:var(--mist);border-radius:16px;padding:.8rem 1rem}
+.status-row b{display:block}
+.status-row span{font-size:.85rem;color:var(--ink-soft)}
+
+/* ---------- Om oss ---------- */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3rem;align-items:center}
+.about-text{display:flex;flex-direction:column;gap:1.1rem;max-width:34rem}
+.about-text h2{font-size:clamp(2rem,4vw,3rem);line-height:1.05}
+.about-text p{color:var(--ink-soft);font-size:1.05rem}
+.about-art{background:var(--sky);border-radius:32px;aspect-ratio:1/.9;position:relative;overflow:hidden;max-width:100%}
+.about-art .drink{position:absolute;filter:drop-shadow(0 18px 22px rgba(62,0,13,.28))}
+.values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
+.value{background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:1.6rem;display:flex;flex-direction:column;gap:.5rem}
+.value h3{font-size:1.35rem}
+.value p{color:var(--ink-soft)}
+
+/* ---------- Footer ---------- */
+.socials{display:flex;gap:.6rem;align-items:center}
+.socials a{width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;transition:transform .2s ease, background .2s ease}
+.socials a:hover{transform:translateY(-3px);background:var(--sky-deep)}
+footer{background:var(--sky);padding-block:4rem 2.5rem;position:relative}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2rem}
+.foot-top h2{font-size:clamp(2rem,4.5vw,3.2rem);line-height:1;color:var(--ink)}
+.foot-top h2 em{color:var(--sky-deep);font-weight:500}
+.foot-col{display:flex;flex-direction:column;gap:.35rem}
+.foot-col a{text-decoration:none}
+.foot-col a:hover{text-decoration:underline}
+.foot-col .eyebrow{color:var(--ink);opacity:.6;margin-bottom:.3rem}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(62,0,13,.18);font-size:.88rem}
+.foot-bottom a{font-weight:600}
+
+/* ---------- Info dialog ---------- */
+dialog.info{border:0;padding:0;border-radius:28px;width:min(760px, calc(100% - 32px));max-height:calc(100% - 32px);background:var(--paper);color:var(--ink);box-shadow:0 40px 90px -30px rgba(62,0,13,.6);overflow:auto}
+dialog.info::backdrop,dialog.ed-dlg::backdrop{background:rgba(62,0,13,.55);backdrop-filter:blur(4px)}
+dialog.info[open]{animation:pop .28s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+.info-wrap{position:relative}
+.info-grid{display:grid;grid-template-columns:260px minmax(0,1fr)}
+.info-art{background:var(--sky);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:2rem 1.5rem}
+.info-art .drink{width:180px;max-width:100%;filter:drop-shadow(0 20px 24px rgba(62,0,13,.3))}
+.info-art .price{font-size:1.6rem;text-align:center}
+.info-body{padding:2rem;display:flex;flex-direction:column;gap:1.4rem;min-width:0}
+.info-body h2{font-size:2rem;line-height:1.05}
+.info-body .desc{color:var(--ink-soft)}
+.info-body h4{margin:0 0 .6rem;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sky-deep)}
+.ingr{margin:0;line-height:1.65}
+.allergens{display:flex;flex-wrap:wrap;gap:.5rem}
+.al{display:inline-block;border-radius:999px;padding:.4rem .95rem;font-size:.9rem;font-weight:600;background:var(--ink);color:var(--paper)}
+.al-none{color:var(--ink-soft);font-size:.92rem}
+.facts{display:flex;flex-wrap:wrap;gap:.5rem}
+.facts span{background:var(--mist);border-radius:999px;padding:.4rem .9rem;font-size:.85rem;font-weight:500}
+.info-actions{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.info-actions .btn{justify-content:center;padding:.85rem 1rem;font-size:.95rem}
+.close{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:0;background:var(--paper);font-size:1.3rem;cursor:pointer;box-shadow:0 6px 16px -8px rgba(62,0,13,.5);z-index:2}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom, 0px) + 24px);transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:.85rem 1.3rem;border-radius:999px;font-weight:500;box-shadow:0 20px 40px -18px rgba(62,0,13,.7);opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:50;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- Admin ---------- */
+.admin{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh;background:var(--mist)}
+.side{background:var(--ink);color:var(--paper);padding-block:1.6rem;padding-left:max(1.2rem, env(safe-area-inset-left, 0px));padding-right:1.2rem;display:flex;flex-direction:column;gap:1.6rem;position:sticky;top:0;height:100vh}
+.side .brand{color:var(--sky);font-size:1.15rem;flex-wrap:wrap;row-gap:.3rem}
+.side .brand small{font-family:var(--body);font-style:normal;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;background:var(--sky);color:var(--ink);padding:.15rem .5rem;border-radius:999px}
+.side-nav{display:flex;flex-direction:column;gap:.3rem}
+.side-nav button{display:flex;align-items:center;justify-content:space-between;gap:.6rem;text-align:left;padding:.75rem 1rem;border-radius:14px;border:0;background:transparent;color:var(--paper);opacity:.75;font-weight:500;cursor:pointer}
+.side-nav button:hover{opacity:1;background:rgba(255,255,255,.06)}
+.side-nav button.on{background:rgba(255,255,255,.12);opacity:1}
+.side-nav .count{background:var(--sky);color:var(--ink);font-size:.75rem;font-weight:700;border-radius:999px;padding:.05rem .5rem}
+.side-foot{margin-top:auto;display:flex;flex-direction:column;gap:.8rem;font-size:.88rem}
+.side-foot .who{display:flex;align-items:center;gap:.6rem;opacity:.85}
+.side-foot .who b{width:34px;height:34px;border-radius:50%;background:var(--sky);color:var(--ink);display:grid;place-items:center}
+.side-foot a{opacity:.75;text-decoration:none}
+.side-foot a:hover{opacity:1}
+.amain{padding-block:2rem 4rem;padding-left:max(16px, 2.2rem);padding-right:max(16px, env(safe-area-inset-right, 0px), 2.2rem);display:flex;flex-direction:column;gap:1.6rem;min-width:0}
+.apanel > div{display:flex;flex-direction:column;gap:1.6rem}
+.ahead{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem;flex-wrap:wrap}
+.ahead h1{font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.1}
+.ahead p{color:var(--ink-soft)}
+.demo-flag{font-size:.78rem;font-weight:600;background:var(--warn-bg);color:var(--warn);padding:.35rem .8rem;border-radius:999px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+.kpi{background:var(--paper);border-radius:20px;padding:1.2rem 1.3rem;display:flex;flex-direction:column;gap:.3rem;border:1px solid var(--line)}
+.kpi small{font-size:.82rem;color:var(--ink-soft);font-weight:500}
+.kpi strong{font-family:var(--display);font-size:2rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.8rem;color:var(--ink-soft)}
+.kpi.hi{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.kpi.hi small,.kpi.hi span{color:var(--paper);opacity:.7}
+.acols{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1.2rem;align-items:start}
+.panel{background:var(--paper);border-radius:22px;border:1px solid var(--line);padding:1.3rem 1.4rem;display:flex;flex-direction:column;gap:1rem;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.panel h2{font-size:1.3rem}
+.panel-head .muted{font-size:.85rem;color:var(--ink-soft)}
+.tbl{overflow-x:auto;margin:0 -.4rem}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px}
+th{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;text-align:left;padding:.5rem .4rem;border-bottom:1px solid var(--line)}
+td{padding:.75rem .4rem;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.cust{display:flex;flex-direction:column}
+.cust small{color:var(--ink-soft);font-size:.8rem}
+.pill{display:inline-flex;align-items:center;gap:.4rem;border:0;border-radius:999px;padding:.3rem .75rem;font-size:.8rem;font-weight:600;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.s-ny{background:var(--new-bg);color:var(--sky-deep)}
+.pill.s-offert{background:var(--warn-bg);color:var(--warn)}
+.pill.s-ok{background:var(--ok-bg);color:var(--ok)}
+.mini-pops{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.mini-pops li{display:grid;grid-template-columns:54px minmax(0,1fr);gap:.9rem;align-items:center;padding:.65rem 0;border-bottom:1px solid var(--line)}
+.mini-pops li:last-child{border-bottom:0}
+.mini-pops .pop-date{border-radius:14px}
+.mini-pops .pop-date strong{font-size:1.4rem;margin:0}
+.mini-pops .pop-date small{font-size:.6rem}
+.mini-pops b{display:block;line-height:1.2}
+.mini-pops span{font-size:.85rem;color:var(--ink-soft)}
+.acal-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:1.2rem;align-items:start}
+.cal.acal{margin-top:0;border:0;padding:0}
+.acal .day{background:transparent;cursor:pointer}
+.acal .day:hover{background:var(--mist)}
+.acal .day.ev-ok{background:var(--ok-bg);color:var(--ok);font-weight:700}
+.acal .day.ev-quote{background:var(--warn-bg);color:var(--warn);font-weight:700}
+.acal .day.ev-new{background:var(--new-bg);color:var(--sky-deep);font-weight:700}
+.acal .day.ev-pop{box-shadow:inset 0 -3px 0 var(--rose)}
+.acal .day.asel{outline:2px solid var(--ink);outline-offset:-2px}
+.lg-ok{background:var(--ok-bg);box-shadow:inset 0 0 0 1px var(--ok)}
+.lg-quote{background:var(--warn-bg);box-shadow:inset 0 0 0 1px var(--warn)}
+.lg-new{background:var(--new-bg);box-shadow:inset 0 0 0 1px var(--sky-deep)}
+.lg-pop{background:transparent;box-shadow:inset 0 -3px 0 var(--rose),inset 0 0 0 1px var(--line)}
+.ev-head{display:flex;justify-content:space-between;align-items:center;gap:.6rem}
+.ev-head .muted{font-size:.85rem;color:var(--ink-soft)}
+.ev-title{font-size:1.6rem;line-height:1.1;margin-top:.2rem}
+.ev-dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:.55rem 1rem;font-size:.92rem}
+.ev-dl dt{color:var(--ink-soft)}
+.ev-dl dd{margin:0;font-weight:500;min-width:0;overflow-wrap:anywhere}
+.ev-note{background:var(--mist);border-radius:14px;padding:.8rem 1rem;font-size:.9rem}
+.ev-sum{display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed var(--line);padding-top:.9rem;font-variant-numeric:tabular-nums}
+.ev-sum span{color:var(--ink-soft);font-size:.88rem}
+.ev-sum strong{font-family:var(--display);font-size:1.6rem}
+#ev-detail .btn{justify-content:center;padding:.8rem 1rem;font-size:.95rem}
+.ev-empty{color:var(--ink-soft);text-align:center;padding:2rem 1rem;display:flex;flex-direction:column;gap:.4rem}
+.ev-empty strong{color:var(--ink);font-family:var(--display);font-size:1.2rem}
+tr[data-evsel]{cursor:pointer}
+tr[data-evsel]:hover td{background:var(--mist)}
+tr.sel td{background:var(--new-bg)}
+.acols2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.2rem;align-items:start}
+.aform{display:flex;flex-direction:column;gap:.9rem}
+.aform label,.ed label{display:flex;flex-direction:column;gap:.35rem;font-size:.85rem;font-weight:600;color:var(--ink-soft)}
+.aform input,.aform textarea,.aform select,.ed input,.ed textarea,.ed select{font:500 1rem var(--body);color:var(--ink);background:var(--mist);border:1px solid var(--line);border-radius:14px;padding:.7rem .9rem;width:100%;min-width:0}
+.aform textarea,.ed textarea{resize:vertical;line-height:1.5}
+.aform input:focus,.aform textarea:focus,.ed input:focus,.ed textarea:focus,.ed select:focus{outline:2px solid var(--sky-deep);outline-offset:1px;background:var(--paper)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.aform .btn,.ed .btn{justify-content:center;padding:.8rem 1.2rem;font-size:.95rem}
+.alist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.5rem}
+.alist li{display:grid;grid-template-columns:54px minmax(0,1fr) auto;align-items:center;gap:.9rem;background:var(--mist);border-radius:16px;padding:.6rem .7rem}
+.alist .pop-date{border-radius:12px}
+.alist .pop-date strong{font-size:1.3rem;margin:0}
+.alist .pop-date small{font-size:.6rem}
+.alist b{display:block;line-height:1.2}
+.alist span{font-size:.85rem;color:var(--ink-soft)}
+.icon-btn{width:34px;height:34px;border-radius:50%;border:0;background:var(--paper);color:var(--ink);cursor:pointer;font-size:.95rem;display:grid;place-items:center;flex:none}
+.icon-btn:hover{background:var(--bad-bg);color:var(--bad)}
+.hrow{display:grid;grid-template-columns:90px 1fr auto 1fr auto;gap:.5rem;align-items:center;font-size:.92rem}
+.hrow input[type=time]{padding:.55rem .6rem}
+.hrow > span{color:var(--ink-soft);text-align:center}
+.hrow.off input[type=time]{opacity:.35}
+.hrow b{font-weight:600}
+.preview-card{background:var(--ink);color:var(--paper);border-radius:18px;padding:1rem 1.2rem;font-size:.92rem;display:flex;flex-direction:column;gap:.2rem}
+.preview-card small{opacity:.65;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.empty-note{color:var(--ink-soft);font-size:.92rem;padding:.4rem 0}
+.mlist{display:flex;flex-direction:column}
+.mrow{display:grid;grid-template-columns:52px minmax(0,1fr) auto auto;gap:1rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.mrow:last-child{border-bottom:0}
+.mrow .drink{width:52px;height:52px}
+.mrow .nm{font-weight:600;min-width:0}
+.mrow .nm small{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;color:var(--ink-soft);font-weight:400;font-size:.85rem}
+.switch{position:relative;width:52px;height:30px;border-radius:999px;border:0;background:var(--line);cursor:pointer;transition:background .2s;flex:none}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:var(--paper);box-shadow:0 2px 6px rgba(62,0,13,.25);transition:transform .2s}
+.switch[aria-checked="true"]{background:var(--ok)}
+.switch[aria-checked="true"]::after{transform:translateX(22px)}
+.sw-wrap{display:flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--ink-soft);min-width:150px;justify-content:flex-end}
+.m-actions{display:flex;gap:.4rem}
+.m-actions button{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:.45rem .9rem;font-weight:600;font-size:.85rem;cursor:pointer;white-space:nowrap}
+.m-actions button:hover{background:var(--mist)}
+.m-actions .del.arm{background:var(--bad);border-color:var(--bad);color:var(--paper)}
+dialog.ed-dlg{border:0;padding:0;border-radius:28px;width:min(820px, calc(100% - 32px));max-height:calc(100% - 32px);background:var(--paper);color:var(--ink);box-shadow:0 40px 90px -30px rgba(62,0,13,.6);overflow:auto}
+.ed{display:flex;flex-direction:column;gap:1.2rem;padding:1.6rem}
+.ed-head{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.ed-head h2{font-size:1.6rem}
+.ed-head .close{position:static}
+.ed-grid{display:grid;grid-template-columns:200px minmax(0,1fr);gap:1.4rem;align-items:start}
+.ed-img{display:flex;flex-direction:column;align-items:center;gap:.8rem;background:var(--sky);border-radius:22px;padding:1.2rem}
+.ed-img .drink{width:150px;height:150px;max-width:100%}
+.ed-img small{font-size:.75rem;text-align:center;color:var(--ink)}
+.ed-img input[type=color]{width:100%;height:40px;border:0;border-radius:12px;padding:0;background:none;cursor:pointer}
+.ed-fields{display:flex;flex-direction:column;gap:.9rem;min-width:0}
+.ed-chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.ed-chips button{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:.4rem .9rem;font-size:.88rem;font-weight:500;cursor:pointer}
+.ed-chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.ed-hint{font-size:.8rem;color:var(--ink-soft);font-weight:400}
+.ed-actions{display:flex;justify-content:flex-end;gap:.6rem;flex-wrap:wrap}
+.ed-err{background:var(--bad-bg);color:var(--bad);border-radius:12px;padding:.6rem .9rem;font-size:.9rem;font-weight:500}
+@media (max-width:1020px){.acal-grid{grid-template-columns:1fr}}
+@media (max-width:1240px){.acols2{grid-template-columns:1fr}}
+@media (max-width:640px){.ed-grid{grid-template-columns:1fr}.mrow{grid-template-columns:44px minmax(0,1fr)}.mrow .sw-wrap,.mrow .m-actions{grid-column:2}.mrow .sw-wrap{justify-content:flex-start}.hrow{grid-template-columns:70px 1fr auto 1fr auto}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1100px){
+  nav{flex-wrap:wrap}
+  .navlinks{order:3;width:100%;overflow-x:auto;padding-bottom:.2rem;scrollbar-width:none}
+  .navlinks a{background:rgba(255,255,255,.08)}
+}
+@media (max-width:1020px){
+  .menu{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .acols{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr 1fr 1fr}
+  .foot-top > :first-child{grid-column:1/-1}
+}
+@media (max-width:820px){
+  .hero-grid{grid-template-columns:1fr;padding-top:1rem}
+  .hero-art{width:min(380px,90%)}
+  .bars,.ways,.steps,.values,.about,.cafe,.menu.three{grid-template-columns:1fr}
+  .menu{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cat-grid{grid-template-columns:1fr}
+  .band{grid-template-columns:1fr}
+  .page-hero .deco{opacity:.35}
+  .pop{grid-template-columns:72px minmax(0,1fr)}
+  .pop .btn{grid-column:1/-1;justify-content:center}
+  .admin{grid-template-columns:minmax(0,1fr)}
+  .side,.side-nav{min-width:0}
+  .side{position:static;height:auto;padding-right:max(16px, env(safe-area-inset-right, 0px));gap:1rem}
+  .side-nav{flex-direction:row;overflow-x:auto}
+  .side-nav button{white-space:nowrap}
+  .side-foot{flex-direction:row;justify-content:space-between;align-items:center}
+  .amain{padding-left:max(16px, env(safe-area-inset-left, 0px))}
+}
+@media (max-width:520px){
+  .menu,.pk-grid{grid-template-columns:1fr}
+  .perks,.row2{grid-template-columns:1fr}
+  .book-pill{padding:.6rem .9rem}
+  .hero{padding-bottom:5rem}
+  .foot-top{grid-template-columns:1fr 1fr}
+  .info-grid{grid-template-columns:1fr}
+  .info-art{padding:1.5rem}
+  .info-art .drink{width:130px}
+  .info-body{padding:1.5rem}
+  .info-actions{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpi strong{font-size:1.6rem}
+  .mrow{grid-template-columns:44px minmax(0,1fr) auto}
+  .sw-wrap{min-width:0}
+  .sw-wrap span{display:none}
+}
+
+/* ---------- Motion ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes spinIn{from{opacity:0;transform:scale(.6) rotate(-60deg)}to{opacity:1;transform:none}}
+@keyframes badgePop{0%{opacity:0;transform:scale(.3) rotate(50deg)}70%{transform:scale(1.08) rotate(6deg)}100%{opacity:1;transform:scale(1) rotate(10deg)}}
+.view.enter .hero-copy > *,.view.enter .page-hero .wrap > :not(.deco){animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+.view.enter .hero-copy > :nth-child(2),.view.enter .page-hero .wrap > :nth-child(2){animation-delay:.08s}
+.view.enter .hero-copy > :nth-child(3),.view.enter .page-hero .wrap > :nth-child(3){animation-delay:.16s}
+.view.enter .hero-copy > :nth-child(4){animation-delay:.24s}
+.view.enter .hero-copy > :nth-child(5){animation-delay:.32s}
+.view.enter .hero-art .d1{animation:spinIn 1s cubic-bezier(.2,.8,.2,1) both, float 6s ease-in-out 1s infinite}
+.view.enter .hero-art .d2{animation:spinIn 1s cubic-bezier(.2,.8,.2,1) .2s both, float 6s ease-in-out 1.2s infinite}
+.view.enter .hero-art .d3{animation:spinIn 1s cubic-bezier(.2,.8,.2,1) .35s both, float 6s ease-in-out 1.35s infinite}
+.view.enter .hero-badge{animation:badgePop .7s cubic-bezier(.2,.8,.2,1) .55s both}
+.view.enter .page-hero .deco{animation:spinIn 1s cubic-bezier(.2,.8,.2,1) .15s both, float 7s ease-in-out 1.15s infinite}
+.view.enter .menu .item,.view.enter .pop{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+.view.enter .menu .item:nth-child(2),.view.enter .pop:nth-child(2){animation-delay:.06s}
+.view.enter .menu .item:nth-child(3),.view.enter .pop:nth-child(3){animation-delay:.12s}
+.view.enter .menu .item:nth-child(4),.view.enter .pop:nth-child(4){animation-delay:.18s}
+.view.enter .menu .item:nth-child(n+5),.view.enter .pop:nth-child(n+5){animation-delay:.24s}
+@supports (animation-timeline: view()){
+  .steps li,.ways li,.bar-card,.pk,.band,.value,.faq details,.about-art,.about-text,.cat-copy,.quote{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+
+<div id="site">
+  <header class="top">
+    <div class="wrap">
+      <nav aria-label="Huvudmeny">
+        <a class="brand" href="#hem" data-go="hem"><span class="logo" aria-hidden="true">D</span>Ditt företag</a>
+        <div class="navlinks">
+          <a href="#hem" data-go="hem">Hem</a>
+          <a href="#meny" data-go="meny">Meny</a>
+          <a href="#pop-ups" data-go="pop-ups">Pop-ups</a>
+          <a href="#event" data-go="event">Event &amp; catering</a>
+          <a href="#kafeet" data-go="kafeet">Kaféet</a>
+          <a href="#om-oss" data-go="om-oss">Om oss</a>
+        </div>
+        <div class="nav-actions"><a class="admin-pill" href="#admin" data-go="admin" title="Gå till admin"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Admin</span></a><a class="book-pill" href="#event" data-go="event" data-scroll="cq-form">Boka baren</a></div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HEM ================= -->
+    <section class="view" data-view="hem" aria-label="Hem">
+      <div class="hero">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow" style="color:var(--ink)">Mobil drinkbar · Kaffe, matcha &amp; mocktails</span>
+            <h1>Baren som kommer <em>till dig</em></h1>
+            <p>Vi rullar in med espresso, ceremoniell matcha och alkoholfria mocktails på pop-ups, bröllop och företagsevent. Och snart öppnar vi vårt eget kafé.</p>
+            <div class="hero-actions">
+              <a class="btn btn-ink" href="#event" data-go="event" data-scroll="cq-form">Boka till ert event →</a>
+              <a class="btn btn-ghost" href="#pop-ups" data-go="pop-ups">Hitta nästa pop-up</a>
+            </div>
+            <div class="trust">
+              <div><strong>3 barer</strong>i en vagn</div>
+              <div><strong>30–600</strong>gäster per event</div>
+              <div><strong>4,9 ★</strong>från kunder</div>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <span class="drink d1" data-hero="0"></span>
+            <span class="drink d2" data-hero="1"></span>
+            <span class="drink d3" data-hero="2"></span>
+            <div class="hero-badge"><div><span>Nästa pop-up</span><strong id="badge-date">Lör 31 okt</strong><span id="badge-place">Stortorget</span></div></div>
+          </div>
+        </div>
+        <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0,60 C240,10 480,90 720,55 C960,20 1200,80 1440,40 L1440,90 L0,90 Z" fill="#FBFBFB"/></svg>
+      </div>
+
+      <div class="strip" aria-hidden="true">
+        <div class="strip-track">
+          <span>Nybryggt på plats</span><span>Matcha som får folk att stanna</span><span>Mocktails som syns på bild</span><span>Vi rullar in där festen är</span><span>Baristor med glimten i ögat</span>
+          <span>Nybryggt på plats</span><span>Matcha som får folk att stanna</span><span>Mocktails som syns på bild</span><span>Vi rullar in där festen är</span><span>Baristor med glimten i ögat</span>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Tre barer i en</span>
+              <h2>Välj er favorit, eller ta alla tre</h2>
+            </div>
+            <a class="link-arrow" href="#meny" data-go="meny">Se hela menyn →</a>
+          </div>
+          <div class="bars">
+            <a class="bar-card bc-kaffe" href="#meny" data-go="meny" data-filter="kaffe"><span class="drink" data-kind="kaffe"></span><h3>Kaffebaren</h3><p>Espresso, flat white och iskaffe med bönor från ett lokalt rosteri.</p><span class="link-arrow">Se kaffet →</span></a>
+            <a class="bar-card bc-matcha" href="#meny" data-go="meny" data-filter="matcha"><span class="drink" data-kind="matcha"></span><h3>Matchabaren</h3><p>Ceremoniell matcha, vispad för hand och serverad varm eller på is.</p><span class="link-arrow">Se matchan →</span></a>
+            <a class="bar-card bc-mocktail" href="#meny" data-go="meny" data-filter="mocktail"><span class="drink" data-kind="mocktail"></span><h3>Mocktailbaren</h3><p>Alkoholfria drinkar med färsk frukt, örter och hemgjorda siraper.</p><span class="link-arrow">Se mocktails →</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec mist">
+        <div class="wrap">
+          <span class="eyebrow">Så hittar du oss</span>
+          <h2 style="font-size:clamp(2rem,4vw,3rem);margin-top:.4rem">Tre sätt att få en kopp</h2>
+          <ul class="ways">
+            <li><span class="n">Pop-ups</span><h3>Vi dyker upp i stan</h3><p>Marknader, run clubs och butiker. Här ser du var vi står härnäst.</p><a class="link-arrow" href="#pop-ups" data-go="pop-ups">Kommande pop-ups →</a></li>
+            <li><span class="n">Event &amp; catering</span><h3>Vi kommer till er</h3><p>Bröllop, kontor, mässor och fester. Vi tar med bar, baristor och allt som behövs.</p><a class="link-arrow" href="#event" data-go="event">Boka baren →</a></li>
+            <li><span class="n">Kaféet</span><h3 id="ways-cafe-h">Snart öppnar vi kafé</h3><p id="ways-cafe">Vårt eget kafé är på gång. Häng med på vägen dit!</p><a class="link-arrow" href="#kafeet" data-go="kafeet" id="ways-cafe-a">Läs mer om kaféet →</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Nästa gång du hittar oss</span>
+              <h2>Kommande pop-ups</h2>
+            </div>
+            <a class="link-arrow" href="#pop-ups" data-go="pop-ups">Se alla →</a>
+          </div>
+          <div class="pops" data-pops="3"></div>
+        </div>
+      </div>
+
+      <div class="sec" style="padding-top:0">
+        <div class="wrap">
+          <div class="band">
+            <div>
+              <span class="eyebrow" style="color:var(--sky)">Event &amp; catering</span>
+              <h2>En hel bar till bröllopet, kontoret eller <em>studenten</em></h2>
+              <p>Från 30 gäster. Välj kaffe, matcha, mocktails eller alla tre och få en offert inom 24 timmar.</p>
+            </div>
+            <a class="btn btn-sky" href="#event" data-go="event" data-scroll="cq-form">Begär offert →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MENY ================= -->
+    <section class="view" data-view="meny" aria-label="Meny" hidden>
+      <div class="page-hero">
+        <div class="wrap">
+          <span class="eyebrow">Menyn</span>
+          <h1>Det vi <em>häller upp</em></h1>
+          <p>Allt på menyn serveras på våra pop-ups och event. Mjölkdrinkarna kan alltid göras med havredryck.</p>
+          <span class="drink deco" data-kind="matcha" aria-hidden="true"></span>
+        </div>
+        <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0,50 C300,90 600,10 900,45 C1150,75 1300,30 1440,50 L1440,90 L0,90 Z" fill="#FBFBFB"/></svg>
+      </div>
+
+      <div class="sec tight">
+        <div class="wrap">
+          <div class="menu-note"><span class="drink" data-kind="mocktail" style="width:46px;flex:none"></span><span><b>Vi säljer inte online.</b> Drinkarna köper du på plats. Priserna gäller på våra pop-ups, på event ingår allt i priset per gäst.</span></div>
+          <div class="section-head">
+            <p class="hint" style="margin:0">Tryck på en drink för att se ingredienser och allergener.</p>
+            <div class="filters" id="menu-filters">
+              <button class="chip on" data-f="alla">Alla</button>
+              <button class="chip" data-f="kaffe">Kaffe</button>
+              <button class="chip" data-f="matcha">Matcha</button>
+              <button class="chip" data-f="mocktail">Mocktails</button>
+              <button class="chip" data-f="bast">Bästsäljare</button>
+            </div>
+          </div>
+          <div class="menu" data-menu="all"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= POP-UPS ================= -->
+    <section class="view" data-view="pop-ups" aria-label="Pop-ups" hidden>
+      <div class="page-hero">
+        <div class="wrap">
+          <span class="eyebrow">Pop-ups</span>
+          <h1>Här poppar vi <em>upp härnäst</em></h1>
+          <p>Vi står på marknader, i butiker och på events runt om i stan. Kom förbi, säg hej och ta en kopp.</p>
+          <span class="drink deco" data-kind="kaffe" aria-hidden="true"></span>
+        </div>
+        <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 C260,85 520,15 780,50 C1040,85 1260,30 1440,55 L1440,90 L0,90 Z" fill="#FBFBFB"/></svg>
+      </div>
+      <div class="sec tight">
+        <div class="wrap">
+          <div class="pops" data-pops="all"></div>
+          <p class="hint" style="margin-top:1.4rem">Planerna kan ändras med kort varsel. Följ oss på Instagram för de senaste uppdateringarna.</p>
+        </div>
+      </div>
+      <div class="sec" style="padding-top:0">
+        <div class="wrap">
+          <div class="band">
+            <div>
+              <span class="eyebrow" style="color:var(--sky)">Har du en marknad eller butik?</span>
+              <h2>Vill du ha oss som <em>pop-up</em> hos dig?</h2>
+              <p>Vi samarbetar gärna med butiker, gym, mässor och föreningar. Berätta om ditt event så hör vi av oss.</p>
+            </div>
+            <a class="btn btn-sky" href="#event" data-go="event" data-scroll="cq-form" data-occ="Pop-up / marknad">Hör av dig →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EVENT ================= -->
+    <section class="view" data-view="event" aria-label="Event och catering" hidden>
+      <div class="page-hero">
+        <div class="wrap">
+          <span class="eyebrow">Event &amp; catering</span>
+          <h1>En hel bar, <em>på plats hos er</em></h1>
+          <p>Vi tar med vagnen, baristorna och allt som behövs. Ni behöver bara ett eluttag och lite golvyta.</p>
+          <span class="drink deco" data-kind="mocktail" aria-hidden="true"></span>
+        </div>
+        <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0,60 C240,10 480,90 720,55 C960,20 1200,80 1440,40 L1440,90 L0,90 Z" fill="#FBFBFB"/></svg>
+      </div>
+
+      <div class="sec tight">
+        <div class="wrap">
+          <div class="section-head">
+            <div><span class="eyebrow">Paket</span><h2>Välj er bar</h2></div>
+            <p style="max-width:34ch;color:var(--ink-soft)">Priset är per gäst och gäller upp till 3 timmars servering. Fri påtår hela tiden.</p>
+          </div>
+          <div class="pk-grid" id="pk-grid">
+            <div class="pk"><div class="pk-icons"><span class="drink" data-kind="kaffe"></span></div><h3>Kaffebaren</h3><p>För mingel, mässor och morgonmöten.</p><ul><li>Espresso &amp; flat white</li><li>Iskaffe och cold brew</li><li>Havredryck ingår</li></ul><div class="pk-price"><strong>89 kr</strong><span>per gäst</span></div><button class="btn btn-ink" type="button" data-pk="kaffe">Välj kaffebaren</button></div>
+            <div class="pk"><div class="pk-icons"><span class="drink" data-kind="matcha"></span></div><h3>Matchabaren</h3><p>Den som alla gäster pratar om efteråt.</p><ul><li>Ceremoniell matcha</li><li>Iced matcha latte</li><li>Säsongens smaksättningar</li></ul><div class="pk-price"><strong>99 kr</strong><span>per gäst</span></div><button class="btn btn-ink" type="button" data-pk="matcha">Välj matchabaren</button></div>
+            <div class="pk"><div class="pk-icons"><span class="drink" data-kind="mocktail"></span></div><h3>Mocktailbaren</h3><p>Alkoholfritt som känns som fest.</p><ul><li>3 mocktails att välja på</li><li>Färsk frukt och örter</li><li>Glas och is ingår</li></ul><div class="pk-price"><strong>119 kr</strong><span>per gäst</span></div><button class="btn btn-ink" type="button" data-pk="mocktail">Välj mocktailbaren</button></div>
+            <div class="pk feature"><div class="pk-icons"><span class="drink" data-kind="kaffe"></span><span class="drink" data-kind="matcha"></span><span class="drink" data-kind="mocktail"></span></div><h3>Hela baren</h3><p>Allt på menyn. Vårt mest bokade paket.</p><ul><li>Kaffe, matcha och mocktails</li><li>Två baristor</li><li>Meny med er logga</li></ul><div class="pk-price"><strong>149 kr</strong><span>per gäst</span></div><button class="btn btn-ink" type="button" data-pk="kaffe,matcha,mocktail">Välj hela baren</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec mist">
+        <div class="wrap">
+          <span class="eyebrow">Så går det till</span>
+          <h2 style="font-size:clamp(2rem,4vw,3rem);margin-top:.4rem">Från förfrågan till första koppen</h2>
+          <ol class="steps">
+            <li><span class="n">Steg 1</span><h3>Skicka en förfrågan</h3><p>Välj datum, antal gäster och vilka barer ni vill ha.</p></li>
+            <li><span class="n">Steg 2</span><h3>Få en offert</h3><p>Vi svarar inom 24 timmar med pris och förslag på meny.</p></li>
+            <li><span class="n">Steg 3</span><h3>Vi rullar in</h3><p>Vi är på plats en timme innan och plockar undan efteråt.</p></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="catering">
+        <div class="wrap cat-grid">
+          <div class="cat-copy">
+            <span class="eyebrow">Boka baren</span>
+            <h2>Berätta om ert <em>event</em></h2>
+            <p>Fyll i det ni vet så långt. Är ni osäkra på något, skriv det i rutan Övrigt så hjälper vi till.</p>
+            <div class="occasions" id="occasions">
+              <button class="on">Bröllop</button><button>Företagsevent</button><button>Mässa</button><button>Studentfest</button><button>Födelsedag</button><button>Pop-up / marknad</button>
+            </div>
+            <ul class="perks">
+              <li><strong>Från 30 gäster</strong><span>Upp till 600 gäster med flera baristor.</span></li>
+              <li><strong>Allt ingår</strong><span>Bar, baristor, koppar, glas, is och tillbehör.</span></li>
+              <li><strong>Er egen meny</strong><span>Döp en drink efter brudparet eller företaget.</span></li>
+              <li><strong>Hela regionen</strong><span>Vi kör ut. Resekostnad anges i offerten.</span></li>
+            </ul>
+          </div>
+
+          <form class="quote" id="cq-form" aria-label="Bokningsförfrågan">
+            <div id="cq-fields" class="qf">
+              <div class="quote-head"><h3>Begär offert</h3><span class="tag">Svar inom 24 h</span></div>
+
+              <div class="qty-row">
+                <div><small>Antal gäster</small><strong id="cq-big">80 gäster</strong></div>
+                <div class="stepper"><button type="button" id="cq-dec" aria-label="Färre gäster">−</button><b id="cq">80</b><button type="button" id="cq-inc" aria-label="Fler gäster">+</button></div>
+              </div>
+
+              <div class="qlabel">Barer <span>välj en eller flera</span></div>
+              <div class="flav" id="q-bars"></div>
+
+              <div class="qrow">
+                <label for="q-name">Namn eller företag<input id="q-name" type="text" placeholder="t.ex. Anna Svensson" required></label>
+                <label for="q-phone">Telefon<input id="q-phone" type="tel" placeholder="070-123 45 67" required></label>
+              </div>
+              <label for="q-mail">E-post<input id="q-mail" type="email" placeholder="namn@exempel.se" required></label>
+              <label for="q-occ">Typ av event
+                <select id="q-occ"><option>Bröllop</option><option>Företagsevent</option><option>Mässa</option><option>Studentfest</option><option>Födelsedag</option><option>Pop-up / marknad</option><option>Annat</option></select>
+              </label>
+
+              <div class="qlabel" id="cal-label">Datum</div>
+              <div class="cal" aria-labelledby="cal-label">
+                <div class="cal-head">
+                  <button type="button" id="cal-prev" aria-label="Föregående månad">‹</button>
+                  <span id="cal-month">November 2026</span>
+                  <button type="button" id="cal-next" aria-label="Nästa månad">›</button>
+                </div>
+                <div class="cal-grid" id="cal-grid"></div>
+                <div class="cal-legend">
+                  <span><b class="lg-free"></b>Ledigt</span>
+                  <span><b class="lg-booked"></b>Bokat</span>
+                  <span><b class="lg-closed"></b>För tidigt</span>
+                  <span><b class="lg-sel"></b>Valt</span>
+                </div>
+              </div>
+              <p class="cal-picked" id="cal-picked">Inget datum valt</p>
+
+              <div class="qrow">
+                <label for="q-time">Start<select id="q-time"></select></label>
+                <label for="q-hours">Längd<select id="q-hours"><option value="2">2 timmar</option><option value="3" selected>3 timmar</option><option value="4">4 timmar</option><option value="5">5 timmar</option><option value="6">6 timmar</option></select></label>
+              </div>
+              <label for="q-addr">Plats<input id="q-addr" type="text" placeholder="Lokal eller adress" required></label>
+              <label for="q-msg">Övrigt<textarea id="q-msg" placeholder="Inomhus eller utomhus, allergier, önskemål om meny, m.m."></textarea></label>
+
+              <div class="quote-total"><span id="cq-calc">Uppskattat pris (80 × 149 kr)</span><strong id="cq-sum">11 920 kr</strong></div>
+              <p class="qerr" id="q-err" hidden></p>
+              <button class="btn btn-ink" type="submit">Skicka förfrågan</button>
+              <p class="note">Över 3 timmar tillkommer 1 200 kr/timme. Resa anges i offerten.</p>
+            </div>
+
+            <div class="qthanks" id="cq-thanks" hidden>
+              <span class="drink" data-kind="matcha"></span>
+              <h3>Tack, vi har fått er förfrågan!</h3>
+              <dl id="cq-summary"></dl>
+              <p>Det här är en demo, så inget skickades. Förfrågan syns nu under Bokningar i Admin.</p>
+              <button class="btn btn-ghost" type="button" id="cq-new" style="justify-content:center">Gör en ny förfrågan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="wrap">
+          <div class="section-head"><div><span class="eyebrow">Vanliga frågor</span><h2>Bra att veta</h2></div></div>
+          <div class="faq">
+            <details open><summary>Hur långt i förväg behöver vi boka?</summary><p>Minst en vecka innan. Inför bröllop och större event under våren och sommaren, gärna flera månader innan.</p></details>
+            <details><summary>Vad behöver ni på plats?</summary><p>Ett vanligt eluttag och ungefär 3 × 2 meter golvyta. Vi tar med vatten, is och allt annat. Utomhus behöver vi tak eller tält vid regn.</p></details>
+            <details><summary>Finns det alternativ utan mjölk?</summary><p>Ja. Alla mjölkdrinkar kan göras med havredryck utan extra kostnad, och alla mocktails är veganska.</p></details>
+            <details><summary>Serverar ni alkohol?</summary><p>Nej, allt vi serverar är alkoholfritt. Det gör oss lätta att boka till skolor, kontor och familjefester.</p></details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= KAFÉET ================= -->
+    <section class="view" data-view="kafeet" aria-label="Kaféet" hidden>
+      <div class="page-hero">
+        <div class="wrap">
+          <span class="eyebrow">Kaféet</span>
+          <h1 id="cafe-h1">Vårt eget kafé är <em>på gång</em></h1>
+          <p id="cafe-lead">Snart får vagnen ett hem. Samma meny som på våra pop-ups, ett par stolar och alltid något nytt att smaka.</p>
+          <span class="drink deco" data-kind="kaffe" aria-hidden="true"></span>
+        </div>
+        <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0,50 C300,90 600,10 900,45 C1150,75 1300,30 1440,50 L1440,90 L0,90 Z" fill="#FBFBFB"/></svg>
+      </div>
+      <div class="sec tight">
+        <div class="wrap cafe">
+          <div class="cafe-info">
+            <span class="open-now" id="open-now">Öppet nu</span>
+            <div class="cafe-addr">
+              <small>Hitta hit</small>
+              <strong id="cafe-street">Exempelgatan 12</strong>
+              <span id="cafe-city">123 45 Staden</span>
+              <span id="cafe-note"></span>
+              <button class="btn btn-sky" type="button" id="cafe-dir">Vägbeskrivning →</button>
+            </div>
+            <div class="soon" id="cafe-soon">
+              <span class="eyebrow">Under tiden</span>
+              <h3>Vi bygger, testar och smakar</h3>
+              <p>Medan kaféet blir klart hittar du oss på pop-ups och event runt om i stan.</p>
+              <ul><li>Datum för invigningen kommer på Instagram</li><li>Först på plats får en drink på oss</li></ul>
+              <a class="btn btn-ink" href="#pop-ups" data-go="pop-ups">Se kommande pop-ups →</a>
+            </div>
+            <div class="hours" id="cafe-hours">
+              <h3>Öppettider</h3>
+              <dl id="hours"></dl>
+            </div>
+          </div>
+          <div class="map" aria-hidden="true">
+            <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
+              <rect width="400" height="400" fill="#E9E4D4"/>
+              <path d="M-20 300 C80 270 160 330 260 300 S380 250 420 270 L420 420 L-20 420 Z" fill="#C9DDE3"/>
+              <path d="M40 40 h110 v90 h-110z" fill="#D5E2BD" rx="10"/>
+              <g stroke="#FFFCF5" stroke-width="16" stroke-linecap="round" fill="none">
+                <path d="M-10 160 H410"/><path d="M200 -10 V290"/><path d="M-10 60 C120 70 260 40 410 80"/><path d="M90 160 L60 290"/><path d="M320 -10 L300 280"/>
+              </g>
+              <g stroke="#FFFCF5" stroke-width="7" fill="none" opacity=".8"><path d="M200 230 H320"/><path d="M110 220 H200"/><path d="M250 90 V160"/></g>
+              <g transform="translate(200 160)">
+                <circle r="26" fill="#E98A6B" opacity=".25"/>
+                <path d="M0 6 C-14 -10 -16 -18 -16 -24 a16 16 0 0 1 32 0 c0 6 -2 14 -16 30z" fill="#3E000D"/>
+                <circle cy="-24" r="6" fill="#FFECCE"/>
+              </g>
+            </svg>
+            <span class="map-label" id="map-label">Ditt företag · Exempelgatan 12</span>
+          </div>
+        </div>
+      </div>
+      <div class="sec mist">
+        <div class="wrap">
+          <div class="section-head">
+            <div><span class="eyebrow" id="cafe-menu-eb">Det här kommer finnas</span><h2>Mest beställt hos oss</h2></div>
+            <a class="link-arrow" href="#meny" data-go="meny">Hela menyn →</a>
+          </div>
+          <div class="menu three" data-menu="featured"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= OM OSS ================= -->
+    <section class="view" data-view="om-oss" aria-label="Om oss" hidden>
+      <div class="page-hero">
+        <div class="wrap">
+          <span class="eyebrow">Om oss</span>
+          <h1>En vagn, tre barer och <em>massor av kärlek</em></h1>
+          <p>Här berättar ni kort om hur företaget startade och vad ni står för.</p>
+          <span class="drink deco" data-kind="matcha" aria-hidden="true"></span>
+        </div>
+        <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0,60 C240,10 480,90 720,55 C960,20 1200,80 1440,40 L1440,90 L0,90 Z" fill="#FBFBFB"/></svg>
+      </div>
+      <div class="sec">
+        <div class="wrap about">
+          <div class="about-text">
+            <span class="eyebrow">Vår historia</span>
+            <h2>Det började med en vagn</h2>
+            <p>Det här är exempeltext. Byt ut den mot er egen historia: hur idén till en mobil bar föddes, vilka ni är och varför ni valde kaffe, matcha och mocktails.</p>
+            <p>Ett andra stycke kan handla om första eventet, planerna för kaféet och vad gästerna kan förvänta sig när ni rullar in.</p>
+            <a class="btn btn-ink" href="#event" data-go="event" style="align-self:flex-start">Boka oss till ert event →</a>
+          </div>
+          <div class="about-art" aria-hidden="true">
+            <span class="drink" data-kind="matcha" style="width:50%;left:8%;top:12%"></span>
+            <span class="drink" data-kind="mocktail" style="width:36%;right:8%;top:8%"></span>
+            <span class="drink" data-kind="kaffe" style="width:32%;right:14%;bottom:10%"></span>
+          </div>
+        </div>
+      </div>
+      <div class="sec mist">
+        <div class="wrap">
+          <div class="section-head"><div><span class="eyebrow">Det här står vi för</span><h2>Enkla regler, bra drinkar</h2></div></div>
+          <div class="values">
+            <div class="value"><h3>Riktiga råvaror</h3><p>Färskpressad citrus, hemgjorda siraper och matcha direkt från Japan.</p></div>
+            <div class="value"><h3>Alltid alkoholfritt</h3><p>Alla ska kunna ta en drink, oavsett ålder eller anledning.</p></div>
+            <div class="value"><h3>Service på riktigt</h3><p>Vi kommer i tid, ler hela kvällen och plockar undan efter oss.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-top">
+        <div style="display:flex;flex-direction:column;gap:1.2rem"><span class="logo logo-foot" aria-hidden="true">D</span><h2>Sugen på en <em>kopp?</em></h2></div>
+        <div class="foot-col">
+          <span class="eyebrow">Sidor</span>
+          <a href="#meny" data-go="meny">Meny</a>
+          <a href="#pop-ups" data-go="pop-ups">Pop-ups</a>
+          <a href="#event" data-go="event">Event &amp; catering</a>
+          <a href="#kafeet" data-go="kafeet">Kaféet</a>
+          <a href="#om-oss" data-go="om-oss">Om oss</a>
+        </div>
+        <div class="foot-col">
+          <span class="eyebrow">Kaféet</span>
+          <span id="foot-addr">Exempelgatan 12, 123 45 Staden</span>
+          <a href="#kafeet" data-go="kafeet" id="foot-cafe">Öppettider →</a>
+        </div>
+        <div class="foot-col">
+          <span class="eyebrow">Kontakt</span>
+          <a href="mailto:kontakt@dittforetag.se">kontakt@dittforetag.se</a>
+          <a href="#event" data-go="event" data-scroll="cq-form">Boka baren</a>
+        </div>
+      </div>
+      <div class="foot-bottom"><span>© 2026 Ditt företag</span><div class="socials"><a href="#" aria-label="Ditt företag på Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg></a><a href="#" aria-label="Ditt företag på TikTok" title="TikTok"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></div><a href="#admin" data-go="admin">Personal: Admin →</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ================= ADMIN ================= -->
+<div id="admin" class="admin" hidden>
+  <aside class="side">
+    <div class="brand"><span class="logo" aria-hidden="true">D</span>Ditt företag <small>Admin</small></div>
+    <div class="side-nav" id="side-nav">
+      <button class="on" data-a="oversikt">Översikt</button>
+      <button data-a="bokningar">Bokningar <span class="count" id="req-count">1</span></button>
+      <button data-a="apops">Pop-ups</button>
+      <button data-a="akafe">Kaféet</button>
+      <button data-a="ameny">Meny</button>
+    </div>
+    <div class="side-foot">
+      <div class="who"><b>A</b>Inloggad som Admin</div>
+      <a href="#hem" data-go="hem">← Till hemsidan</a>
+    </div>
+  </aside>
+
+  <div class="amain">
+    <!-- Översikt -->
+    <div class="apanel" data-apanel="oversikt">
+      <div>
+        <div class="ahead">
+          <div><p>Onsdag 28 oktober</p><h1>God morgon!</h1></div>
+          <span class="demo-flag">Exempeldata</span>
+        </div>
+        <div class="kpis">
+          <div class="kpi hi"><small>Nya förfrågningar</small><strong id="kpi-new">1</strong><span>Svara inom 24 h</span></div>
+          <div class="kpi"><small>Bokade event</small><strong id="kpi-ev">9</strong><span id="kpi-ev-sub">kommande</span></div>
+          <div class="kpi"><small>Bokat värde</small><strong id="kpi-val">0 kr</strong><span>bekräftade event</span></div>
+          <div class="kpi"><small>Pop-ups</small><strong id="kpi-pop">5</strong><span>kommande</span></div>
+        </div>
+        <div class="acols">
+          <div class="panel">
+            <div class="panel-head"><h2>Kommande event</h2><button class="link-arrow" style="background:none;border-left:0;border-right:0;border-top:0;cursor:pointer" data-a-go="bokningar">Visa alla →</button></div>
+            <div class="tbl"><table><thead><tr><th>Datum</th><th>Kund</th><th class="num">Gäster</th><th>Status</th></tr></thead><tbody id="recent"></tbody></table></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>Nästa pop-ups</h2><button class="link-arrow" style="background:none;border-left:0;border-right:0;border-top:0;cursor:pointer" data-a-go="apops">Ändra →</button></div>
+            <ul class="mini-pops" id="mini-pops"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bokningar -->
+    <div class="apanel" data-apanel="bokningar" hidden>
+      <div>
+        <div class="ahead">
+          <div><p>Tryck på ett datum eller ett event för att se detaljerna</p><h1>Bokningar</h1></div>
+          <span class="demo-flag">Exempeldata</span>
+        </div>
+        <div class="acal-grid">
+          <div class="panel">
+            <div class="cal acal">
+              <div class="cal-head">
+                <button type="button" id="acal-prev" aria-label="Föregående månad">‹</button>
+                <span id="acal-month">November 2026</span>
+                <button type="button" id="acal-next" aria-label="Nästa månad">›</button>
+              </div>
+              <div class="cal-grid" id="acal-grid"></div>
+              <div class="cal-legend">
+                <span><b class="lg-ok"></b>Bekräftad</span>
+                <span><b class="lg-quote"></b>Offert skickad</span>
+                <span><b class="lg-new"></b>Ny förfrågan</span>
+                <span><b class="lg-pop"></b>Pop-up</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel" id="ev-detail" aria-live="polite"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>Alla event</h2><span class="muted" id="ev-count"></span></div>
+          <div class="tbl"><table><thead><tr><th>Datum</th><th>Kund</th><th>Event</th><th class="num">Gäster</th><th>Status</th></tr></thead><tbody id="ev-list"></tbody></table></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pop-ups -->
+    <div class="apanel" data-apanel="apops" hidden>
+      <div>
+        <div class="ahead">
+          <div><p>Pop-ups som läggs till här visas direkt på hemsidan</p><h1>Pop-ups</h1></div>
+          <span class="demo-flag">Exempeldata</span>
+        </div>
+        <div class="acols2">
+          <form class="panel aform" id="pop-form">
+            <div class="panel-head"><h2>Ny pop-up</h2></div>
+            <label for="pp-place">Plats<input id="pp-place" type="text" placeholder="t.ex. Julmarknaden på Torget" required maxlength="60"></label>
+            <label for="pp-area">Adress eller område<input id="pp-area" type="text" placeholder="t.ex. Stortorget, Staden" maxlength="60"></label>
+            <div class="row2">
+              <label for="pp-date">Datum<input id="pp-date" type="date" required></label>
+              <label for="pp-bars">Serverar<select id="pp-bars"><option>Hela baren</option><option>Kaffe &amp; matcha</option><option>Matcha &amp; mocktails</option><option>Bara kaffe</option></select></label>
+            </div>
+            <div class="row2">
+              <label for="pp-from">Från<input id="pp-from" type="time" value="10:00" step="900" required></label>
+              <label for="pp-to">Till<input id="pp-to" type="time" value="15:00" step="900" required></label>
+            </div>
+            <p class="ed-err" id="pop-err" hidden></p>
+            <button class="btn btn-ink" type="submit">Lägg till pop-up</button>
+          </form>
+          <div class="panel">
+            <div class="panel-head"><h2>Kommande</h2><span class="muted" id="pop-count"></span></div>
+            <ul class="alist" id="apops"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kaféet -->
+    <div class="apanel" data-apanel="akafe" hidden>
+      <div>
+        <div class="ahead">
+          <div><p>Kaféet visas som "på gång" tills du slår på att det har öppnat</p><h1>Kaféet</h1></div>
+          <span class="demo-flag">Exempeldata</span>
+        </div>
+        <div class="acols2">
+          <form class="panel aform" id="addr-form">
+            <div class="panel-head"><h2>Status och adress</h2></div>
+            <div class="status-row"><div><b>Kaféet har öppnat</b><span id="pa-status-txt">Av: sidan visar "på gång"</span></div><button type="button" class="switch" role="switch" aria-checked="false" id="pa-open" aria-label="Kaféet har öppnat"></button></div>
+            <label for="pa-when">Planerad öppning<input id="pa-when" type="text" placeholder="t.ex. Våren 2027" maxlength="30"></label>
+            <label for="pa-street">Gatuadress<input id="pa-street" type="text" required></label>
+            <div class="row2">
+              <label for="pa-zip">Postnummer<input id="pa-zip" type="text" required></label>
+              <label for="pa-city">Ort<input id="pa-city" type="text" required></label>
+            </div>
+            <label for="pa-note">Hitta hit<textarea id="pa-note" rows="2" placeholder="t.ex. Ingång från gården"></textarea></label>
+            <div class="preview-card"><small>Så här ser kunden det</small><span id="pa-preview"></span></div>
+            <button class="btn btn-ink" type="submit">Spara</button>
+          </form>
+          <form class="panel aform" id="hours-form">
+            <div class="panel-head"><h2>Öppettider</h2><span class="muted">Stäng av en dag med knappen</span></div>
+            <div id="hours-ed" style="display:flex;flex-direction:column;gap:.55rem"></div>
+            <p class="ed-err" id="hours-err" hidden></p>
+            <button class="btn btn-ink" type="submit">Spara öppettider</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meny -->
+    <div class="apanel" data-apanel="ameny" hidden>
+      <div>
+        <div class="ahead">
+          <div><p>Lägg till, ändra eller ta bort drinkar. Stäng av en drink när den är slut för dagen.</p><h1>Meny</h1></div>
+          <button class="btn btn-ink" type="button" id="add-drink">＋ Lägg till drink</button>
+        </div>
+        <div class="panel"><div class="mlist" id="mlist"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Drink editor -->
+<dialog class="ed-dlg" id="ed" aria-labelledby="ed-title">
+  <form class="ed" id="ed-form">
+    <div class="ed-head"><h2 id="ed-title">Redigera drink</h2><button type="button" class="close" id="ed-close" aria-label="Stäng">✕</button></div>
+    <div class="ed-grid">
+      <div class="ed-img">
+        <span class="drink" id="ed-preview"></span>
+        <label for="ed-color" style="width:100%;font-size:.8rem;font-weight:600;display:flex;flex-direction:column;gap:.3rem">Färg på drinken<input type="color" id="ed-color" value="#A9C27A"></label>
+        <label class="btn btn-ghost" for="ed-file" style="cursor:pointer">Välj bild</label>
+        <input type="file" id="ed-file" accept="image/*" hidden>
+        <small>Eller ladda upp ett kvadratiskt foto</small>
+      </div>
+      <div class="ed-fields">
+        <label for="ed-name">Namn<input id="ed-name" type="text" required maxlength="40" placeholder="t.ex. Iced matcha latte"></label>
+        <div class="row2">
+          <label for="ed-kind">Bar<select id="ed-kind"><option value="kaffe">Kaffe</option><option value="matcha">Matcha</option><option value="mocktail">Mocktail</option></select></label>
+          <label for="ed-style">Serveras<select id="ed-style"><option value="hot">Varm</option><option value="iced">På is</option></select></label>
+        </div>
+        <label for="ed-desc">Beskrivning<textarea id="ed-desc" rows="2" maxlength="160" placeholder="En mening om hur drinken smakar"></textarea></label>
+        <label for="ed-ingr">Ingredienser<textarea id="ed-ingr" rows="3" placeholder="Matcha, mjölk, is …"></textarea></label>
+        <div><div class="qlabel" style="margin-bottom:.4rem">Allergener <span class="ed-hint">tryck på de som drinken innehåller</span></div><div class="ed-chips" id="ed-al"></div></div>
+        <div class="row2">
+          <label for="ed-tag">Etikett<select id="ed-tag"><option value="">Ingen</option><option>Bästsäljare</option><option>Nyhet</option></select></label>
+          <label for="ed-price">Pris på pop-ups (kr)<input id="ed-price" type="number" min="0" max="500" step="1" required></label>
+        </div>
+        <p class="ed-err" id="ed-err" hidden></p>
+      </div>
+    </div>
+    <div class="ed-actions">
+      <button type="button" class="btn btn-ghost" id="ed-cancel">Avbryt</button>
+      <button type="submit" class="btn btn-ink" id="ed-save">Spara</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Info dialog -->
+<dialog class="info" id="info" aria-labelledby="info-name">
+  <div class="info-wrap">
+    <button class="close" id="info-close" aria-label="Stäng">✕</button>
+    <div class="info-grid">
+      <div class="info-art">
+        <span class="drink" id="info-drink"></span>
+        <span class="price" id="info-price">55 kr <small>på pop-ups</small></span>
+      </div>
+      <div class="info-body">
+        <div>
+          <span class="eyebrow" id="info-tag">Matcha</span>
+          <h2 id="info-name">Drink</h2>
+        </div>
+        <p class="desc" id="info-desc"></p>
+        <div class="facts" id="info-facts"></div>
+        <div>
+          <h4>Ingredienser</h4>
+          <p class="ingr" id="info-ingr"></p>
+        </div>
+        <div>
+          <h4>Allergener</h4>
+          <div class="allergens" id="info-allergens"></div>
+        </div>
+        <div class="info-actions">
+          <button class="btn btn-ink" type="button" data-close-go="event">Boka till ert event</button>
+          <button class="btn btn-ghost" type="button" data-close-go="pop-ups">Var finns ni idag?</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  function $(id){return document.getElementById(id);}
+  function kr(n){return n.toLocaleString('sv-SE').replace(/\s/g,' ')+' kr';}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+  function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+
+  // ---------- Dates ----------
+  var TODAY=new Date(2026,9,28);
+  var MONTHS=['januari','februari','mars','april','maj','juni','juli','augusti','september','oktober','november','december'];
+  var DAYS=['söndag','måndag','tisdag','onsdag','torsdag','fredag','lördag'];
+  function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  function fromIso(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+  function longDate(d){return cap(DAYS[d.getDay()]+' '+d.getDate()+' '+MONTHS[d.getMonth()]);}
+  function shortDate(d){return cap(DAYS[d.getDay()].slice(0,3))+' '+d.getDate()+' '+MONTHS[d.getMonth()].slice(0,3);}
+
+  // ---------- Drink illustrations ----------
+  var KIND={kaffe:{label:'Kaffe',bg:'#B88B66'},matcha:{label:'Matcha',bg:'#8FA968'},mocktail:{label:'Mocktail',bg:'#E98A6B'}};
+  var P='#FBFBFB';
+  function svgDrink(kind,style,c,c2){
+    var bg=KIND[kind].bg, s='<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="'+bg+'"/>';
+    if(style==='hot'){
+      s+='<path d="M40 30c-3-4 3-6 0-10M51 30c-3-4 3-6 0-10" fill="none" stroke="'+P+'" stroke-width="3" stroke-linecap="round" opacity=".75"/>'+
+         '<path d="M67 45h3.5a8.5 8.5 0 0 1 0 17H66" fill="none" stroke="'+P+'" stroke-width="5"/>'+
+         '<path d="M27 37h42v20a18 18 0 0 1-18 18h-6a18 18 0 0 1-18-18z" fill="'+P+'"/>'+
+         '<ellipse cx="48" cy="38" rx="19" ry="3.8" fill="'+c+'"/>'+
+         '<rect x="22" y="76" width="54" height="5" rx="2.5" fill="'+P+'" opacity=".85"/>';
+    }else{
+      s+='<path d="M58 11 52 62" stroke="'+(kind==='mocktail'?'#3E000D':P)+'" stroke-width="4.5" stroke-linecap="round"/>'+
+         '<path d="M34 42h32l-3.4 32.5a4 4 0 0 1-4 3.5H41.4a4 4 0 0 1-4-3.5z" fill="'+c+'"/>'+
+         (c2?'<path d="M35.9 60h28.2l-1.5 14.5a4 4 0 0 1-4 3.5H41.4a4 4 0 0 1-4-3.5z" fill="'+c2+'"/>':'')+
+         '<rect x="39" y="45" width="10" height="10" rx="2" fill="#fff" opacity=".55" transform="rotate(-12 44 50)"/>'+
+         '<rect x="51" y="50" width="9" height="9" rx="2" fill="#fff" opacity=".45" transform="rotate(14 55 54)"/>'+
+         '<path d="M31 27h38l-4.5 48a6 6 0 0 1-6 5.5h-17a6 6 0 0 1-6-5.5z" fill="rgba(255,255,255,.22)" stroke="'+P+'" stroke-width="3" stroke-linejoin="round"/>';
+      if(kind==='mocktail'){
+        s+='<circle cx="33" cy="28" r="9.5" fill="'+P+'"/><circle cx="33" cy="28" r="7.5" fill="'+(c2||'#F2C14E')+'"/>'+
+           '<path d="M33 20.5v15M25.5 28h15M27.7 22.7l10.6 10.6M38.3 22.7 27.7 33.3" stroke="'+P+'" stroke-width="1.2"/>'+
+           '<path d="M63 25c5-8 13-7 13-7s-1 9-9 10z" fill="#6E9440"/>';
+      }
+    }
+    return s+'</svg>';
+  }
+  var KIND_ICON={kaffe:['kaffe','hot','#4A2E1F'],matcha:['matcha','iced','#A9C27A'],mocktail:['mocktail','iced','#F2A33A','#E2553B']};
+  function kindIcon(k){var a=KIND_ICON[k];return svgDrink(a[0],a[1],a[2],a[3]);}
+  function drinkArt(i){var d=C[i];if(d.img)return '<img class="photo" src="'+d.img+'" alt="" draggable="false">';return svgDrink(d.kind,d.style,d.c,d.c2);}
+  function drinkTag(i,cls){return '<span class="drink '+(cls||'')+'">'+drinkArt(i)+'</span>';}
+  function paintDrinks(root){
+    (root||document).querySelectorAll('.drink[data-kind]').forEach(function(el){if(el.dataset.done)return;el.dataset.done='1';el.innerHTML=kindIcon(el.dataset.kind);});
+  }
+
+  // ---------- Data ----------
+  var ALL=["Mjölk","Gluten","Soja","Nötter","Sulfit"];
+  var C=[
+    {name:"Iced matcha latte",kind:"matcha",style:"iced",c:"#A9C27A",tag:"Bästsäljare",price:62,desc:"Ceremoniell matcha vispad för hand, hälld över kall mjölk och is.",ingr:"Ceremoniell matcha, mjölk eller havredryck, is.",has:["Mjölk"]},
+    {name:"Strawberry matcha",kind:"matcha",style:"iced",c:"#8DB255",c2:"#E77B8C",tag:"Nyhet",price:68,desc:"Lager av jordgubbspuré, mjölk och matcha. Lika god som den ser ut.",ingr:"Jordgubbspuré (jordgubbar, socker, citron), ceremoniell matcha, mjölk eller havredryck, is.",has:["Mjölk"]},
+    {name:"Ceremoniell matcha",kind:"matcha",style:"hot",c:"#6E9440",tag:"",price:52,desc:"Ren matcha vispad med varmt vatten. Len, grön och lite nötig.",ingr:"Ceremoniell matcha från Uji, varmt vatten.",has:[]},
+    {name:"Coconut cloud matcha",kind:"matcha",style:"iced",c:"#9DBB6A",c2:"#F4EFE3",tag:"",price:66,desc:"Iskall matcha toppad med ett moln av kokosskum.",ingr:"Ceremoniell matcha, kokosdryck, havredryck, vaniljsirap, is.",has:["Gluten"]},
+    {name:"Flat white",kind:"kaffe",style:"hot",c:"#C89F78",tag:"",price:48,desc:"Dubbel espresso med silkeslen mjölk. Kaffebarens klassiker.",ingr:"Espresso (lokalt rostade bönor), mjölk eller havredryck.",has:["Mjölk"]},
+    {name:"Espresso",kind:"kaffe",style:"hot",c:"#4A2E1F",tag:"",price:35,desc:"Kort, kraftfull och med tydlig crema. Rostad lokalt.",ingr:"Espresso på bönor från ett lokalt rosteri.",has:[]},
+    {name:"Iced vanilla latte",kind:"kaffe",style:"iced",c:"#C49A6C",c2:"#6B4128",tag:"Bästsäljare",price:58,desc:"Espresso, kall mjölk och hemkokt vaniljsirap över is.",ingr:"Espresso, mjölk eller havredryck, vaniljsirap (socker, vatten, vaniljstång), is.",has:["Mjölk"]},
+    {name:"Espresso tonic",kind:"kaffe",style:"iced",c:"#E7C48F",c2:"#7A4A2C",tag:"",price:55,desc:"Bubblig tonic med en shot espresso och en skiva apelsin.",ingr:"Tonic, espresso, apelsin, is.",has:[]},
+    {name:"Passion spritz",kind:"mocktail",style:"iced",c:"#F2A33A",c2:"#F2C14E",tag:"Bästsäljare",price:72,desc:"Passionsfrukt, lime och bubbel. Sommar i ett glas, året runt.",ingr:"Passionsfrukt, limejuice, sockerlag, alkoholfritt bubbel, is, mynta.",has:["Sulfit"]},
+    {name:"Hibiskus fizz",kind:"mocktail",style:"iced",c:"#C2365A",c2:"#F2C14E",tag:"",price:72,desc:"Kallbryggt hibiskuste med citron och ingefära.",ingr:"Hibiskuste, citron, ingefärssirap, sodavatten, is.",has:[]},
+    {name:"Mint & lime smash",kind:"mocktail",style:"iced",c:"#B7D77A",c2:"#9CCB5A",tag:"",price:68,desc:"Krossad mynta, lime och rörsocker. Frisk och syrlig.",ingr:"Mynta, lime, rörsocker, sodavatten, krossad is.",has:[]},
+    {name:"Blodapelsin & rosmarin",kind:"mocktail",style:"iced",c:"#E2553B",c2:"#F28C38",tag:"Nyhet",price:74,desc:"Pressad blodapelsin med rosmarinsirap och tonic.",ingr:"Blodapelsinjuice, rosmarinsirap, tonic, is.",has:[]}
+  ];
+  C.forEach(function(d){d.on=true;});
+  C[1].on=false;
+  var filter='alla';
+
+  // ---------- Menu ----------
+  function card(i){
+    var d=C[i], tag=d.tag?'<span class="tag'+(d.tag==='Nyhet'?' new':'')+'">'+d.tag+'</span>':'';
+    return '<article class="item'+(d.on?'':' out')+'" data-open="'+i+'" tabindex="0" role="button" aria-label="'+esc(d.name)+', visa ingredienser och allergener">'+
+      '<div class="item-art">'+tag+drinkTag(i)+'<span class="info-btn"><i>i</i>Info</span></div>'+
+      '<span class="kind">'+KIND[d.kind].label+' · '+(d.style==='hot'?'Varm':'På is')+'</span>'+
+      '<h3>'+esc(d.name)+'</h3><p>'+esc(d.desc)+'</p>'+
+      '<div class="item-foot"><span class="price">'+d.price+' kr <small>på pop-ups</small></span>'+(d.on?'':'<span class="soldout">Slut idag</span>')+'</div></article>';
+  }
+  function featured(){var t=C.map(function(c,i){return i;}).filter(function(i){return C[i].tag==='Bästsäljare';});C.forEach(function(c,i){if(t.length<3&&t.indexOf(i)<0)t.push(i);});return t.slice(0,3);}
+  function renderMenus(){
+    document.querySelectorAll('[data-menu]').forEach(function(m){
+      var list=m.dataset.menu==='featured'?featured():C.map(function(c,i){return i;}).filter(function(i){return filter==='alla'||(filter==='bast'?C[i].tag==='Bästsäljare':C[i].kind===filter);});
+      m.innerHTML=list.length?list.map(card).join(''):'<p class="empty-note">Inga drinkar här just nu.</p>';
+    });
+  }
+  function setFilter(f){
+    filter=f;
+    $('menu-filters').querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',c.dataset.f===f);});
+    renderMenus();
+  }
+  $('menu-filters').addEventListener('click',function(e){var b=e.target.closest('[data-f]');if(b)setFilter(b.dataset.f);});
+
+  // ---------- Toast ----------
+  var tt;
+  function toast(msg){var t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show');},2400);}
+
+  // ---------- Info dialog ----------
+  var dlg=$('info');
+  function openInfo(i){
+    var d=C[i];
+    $('info-drink').innerHTML=drinkArt(i);
+    $('info-name').textContent=d.name;
+    $('info-tag').textContent=KIND[d.kind].label+(d.tag?' · '+d.tag:'');
+    $('info-desc').textContent=d.desc;
+    $('info-price').innerHTML=d.price+' kr <small>på pop-ups</small>';
+    var f=[d.style==='hot'?'Serveras varm':'Serveras på is'];
+    if(d.has.indexOf('Mjölk')>-1)f.push('Finns med havredryck');
+    if(!d.has.length)f.push('Vegansk');
+    if(!d.on)f.push('Slut för idag');
+    $('info-facts').innerHTML=f.map(function(x){return '<span>'+x+'</span>';}).join('');
+    $('info-ingr').textContent=d.ingr||'–';
+    $('info-allergens').innerHTML=d.has.length?d.has.map(function(a){return '<span class="al">'+a+'</span>';}).join(''):'<span class="al-none">Inga av de vanliga allergenerna.</span>';
+    if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');
+  }
+  function closeInfo(){if(dlg.close)dlg.close();else dlg.removeAttribute('open');}
+  $('info-close').addEventListener('click',closeInfo);
+  dlg.addEventListener('click',function(e){if(e.target===dlg)closeInfo();});
+
+  // ---------- Pop-ups ----------
+  var POPS=[
+    {iso:"2026-10-31",place:"Höstmarknaden på Stortorget",area:"Stortorget, Staden",from:"10:00",to:"16:00",bars:"Hela baren"},
+    {iso:"2026-11-04",place:"Morgonpass med stadens run club",area:"Parkens entré, Staden",from:"07:00",to:"10:00",bars:"Kaffe & matcha"},
+    {iso:"2026-11-14",place:"Vintage-loppis i Kulturhuset",area:"Kulturhuset, Staden",from:"11:00",to:"17:00",bars:"Hela baren"},
+    {iso:"2026-11-21",place:"Pop-up hos Blomsterbutiken",area:"Storgatan 8, Staden",from:"10:00",to:"15:00",bars:"Matcha & mocktails"},
+    {iso:"2026-12-05",place:"Julmarknaden på Torget",area:"Torget, Staden",from:"11:00",to:"18:00",bars:"Hela baren"}
+  ];
+  function upcomingPops(){return POPS.filter(function(p){return p.iso>=iso(TODAY);}).sort(function(a,b){return a.iso<b.iso?-1:1;});}
+  function dateBlock(d){return '<div class="pop-date"><small>'+DAYS[d.getDay()].slice(0,3)+'</small><strong>'+d.getDate()+'</strong><span>'+MONTHS[d.getMonth()].slice(0,3)+'</span></div>';}
+  function renderPops(){
+    var up=upcomingPops();
+    document.querySelectorAll('[data-pops]').forEach(function(box){
+      var list=box.dataset.pops==='all'?up:up.slice(0,+box.dataset.pops);
+      box.innerHTML=list.length?list.map(function(p,k){
+        var d=fromIso(p.iso);
+        return '<article class="pop'+(k===0?' next':'')+'">'+dateBlock(d)+'<div class="pop-body">'+(k===0?'<span class="eyebrow">Härnäst</span>':'')+'<h3>'+esc(p.place)+'</h3><div class="pop-meta"><span>'+longDate(d)+', kl. '+p.from+'–'+p.to+'</span><span>'+esc(p.area)+'</span></div><div class="pop-tags"><span>'+esc(p.bars)+'</span></div></div><button class="btn btn-ghost" type="button" data-cal="'+esc(p.place)+'">Spara i kalendern</button></article>';
+      }).join(''):'<p class="pop-empty">Inga pop-ups inplanerade just nu. Följ oss på Instagram så missar du inget!</p>';
+    });
+    var n=up[0];
+    if(n){$('badge-date').textContent=shortDate(fromIso(n.iso));$('badge-place').textContent=n.area.split(',')[0];}
+    else{$('badge-date').textContent='Snart';$('badge-place').textContent='Håll utkik';}
+  }
+
+  // ---------- Bars & booking ----------
+  var BARS={kaffe:{name:'Kaffebar',pp:89},matcha:{name:'Matchabar',pp:99},mocktail:{name:'Mocktailbar',pp:119}};
+  var BAR_KEYS=['kaffe','matcha','mocktail'];
+  var EXTRA_HOUR=1200;
+  function perGuest(b){
+    if(b.length===3)return 149;
+    if(b.length===2)return Math.max(BARS[b[0]].pp,BARS[b[1]].pp)+20;
+    return b.length?BARS[b[0]].pp:0;
+  }
+  function barNames(b){return b.length===3?'Hela baren':b.map(function(k){return BARS[k].name;}).join(' + ');}
+  function evPrice(e){return e.g*perGuest(e.bars)+Math.max(0,e.h-3)*EXTRA_HOUR;}
+
+  var EVENTS=[
+    {iso:"2026-10-30",who:"Nordisk Konsult AB",occ:"Företagsevent",g:60,bars:["kaffe","matcha"],time:"08:30",h:3,addr:"Kungsgatan 20, Staden",phone:"070-444 55 66",mail:"event@nordiskkonsult.exempel",note:"Frukostmöte för kunder. Vill ha logga på menyn.",s:"Bekräftad"},
+    {iso:"2026-11-07",who:"Sara & Johan",occ:"Bröllop",g:120,bars:["kaffe","matcha","mocktail"],time:"16:00",h:5,addr:"Herrgården Ekudden, Staden",phone:"072-555 66 77",mail:"saraochjohan@exempel.se",note:"Vill döpa en mocktail till \"The Happy Couple\". Kontakt på plats: Maria, 070-999 88 77.",s:"Bekräftad"},
+    {iso:"2026-11-12",who:"Tech Hub Staden",occ:"Mässa",g:250,bars:["kaffe"],time:"09:00",h:6,addr:"Mässhallen, Staden",phone:"08-234 567 89",mail:"office@techhub.exempel",note:"Monter B14. Behöver bar ute hela dagen.",s:"Offert skickad"},
+    {iso:"2026-11-13",who:"Ekbackens gymnasium",occ:"Studentfest",g:90,bars:["mocktail"],time:"18:00",h:3,addr:"Skolvägen 5, Staden",phone:"070-123 00 11",mail:"elevkaren@ekbacken.exempel",note:"",s:"Ny"},
+    {iso:"2026-11-20",who:"Familjen Haddad",occ:"Födelsedag",g:40,bars:["matcha","mocktail"],time:"14:00",h:3,addr:"Björkvägen 12, Staden",phone:"073-234 11 22",mail:"haddad@exempel.se",note:"Mammas 50-årsdag. Hon älskar matcha!",s:"Bekräftad"},
+    {iso:"2026-11-28",who:"Elin & Marcus",occ:"Bröllop",g:100,bars:["kaffe","matcha","mocktail"],time:"15:00",h:4,addr:"Sjöbodarna, Hamnvägen 3, Staden",phone:"073-666 77 88",mail:"elinmarcus@exempel.se",note:"Undrar om baren kan stå utomhus under mingel.",s:"Offert skickad"},
+    {iso:"2026-12-04",who:"Advokatbyrån Lind",occ:"Företagsevent",g:70,bars:["mocktail"],time:"17:00",h:4,addr:"Torget 2, Staden",phone:"08-345 678 90",mail:"reception@advlind.exempel",note:"Julmingel. Gärna en vinterinspirerad mocktail.",s:"Bekräftad"},
+    {iso:"2026-12-12",who:"Stadens IK",occ:"Annat",g:150,bars:["kaffe","mocktail"],time:"12:00",h:3,addr:"Sporthallen, Staden",phone:"070-777 88 99",mail:"kansli@stadensik.exempel",note:"Säsongsavslutning för ungdomslagen.",s:"Bekräftad"},
+    {iso:"2026-12-18",who:"Butiken Lumi",occ:"Pop-up / marknad",g:30,bars:["matcha"],time:"11:00",h:6,addr:"Storgatan 14, Staden",phone:"076-888 99 00",mail:"hej@lumi.exempel",note:"Julshopping-kväll i butiken.",s:"Bekräftad"}
+  ];
+  var EVCLS={"Ny":"s-ny","Offert skickad":"s-offert","Bekräftad":"s-ok"};
+  function isBooked(id){return EVENTS.some(function(e){return e.iso===id&&e.s!=='Ny';});}
+  function evOn(id){return EVENTS.filter(function(e){return e.iso===id;});}
+
+  var cq=80, qBars=['kaffe','matcha','mocktail'], picked=null;
+  var minDate=new Date(TODAY.getFullYear(),TODAY.getMonth(),TODAY.getDate()+7);
+  var maxMonth=new Date(TODAY.getFullYear(),TODAY.getMonth()+8,1);
+  var view=new Date(TODAY.getFullYear(),TODAY.getMonth()+1,1);
+  function dayState(d){if(d<minDate)return 'closed';if(isBooked(iso(d)))return 'booked';return 'free';}
+  function renderCal(){
+    var y=view.getFullYear(),m=view.getMonth();
+    $('cal-month').textContent=cap(MONTHS[m])+' '+y;
+    $('cal-prev').disabled=(y===TODAY.getFullYear()&&m===TODAY.getMonth());
+    $('cal-next').disabled=(view>=maxMonth);
+    var html=['Mån','Tis','Ons','Tor','Fre','Lör','Sön'].map(function(d){return '<span class="cal-dow">'+d+'</span>';}).join('');
+    var lead=(new Date(y,m,1).getDay()+6)%7, days=new Date(y,m+1,0).getDate();
+    for(var i=0;i<lead;i++)html+='<span></span>';
+    for(var d=1;d<=days;d++){
+      var dt=new Date(y,m,d), st=dayState(dt), sel=picked&&iso(dt)===iso(picked);
+      var title=st==='booked'?'Redan bokat':(st==='closed'?'För tidigt att boka':'Ledigt');
+      html+='<button type="button" class="day'+(st!=='free'?' '+st:'')+(sel?' sel':'')+(iso(dt)===iso(TODAY)?' today':'')+'" data-day="'+iso(dt)+'"'+(st!=='free'?' disabled':'')+' title="'+title+'" aria-label="'+longDate(dt)+', '+title.toLowerCase()+'"'+(sel?' aria-pressed="true"':'')+'>'+d+'</button>';
+    }
+    $('cal-grid').innerHTML=html;
+    var p=$('cal-picked');
+    p.textContent=picked?'Valt datum: '+longDate(picked):'Inget datum valt';
+    p.classList.toggle('none',!picked);
+  }
+  $('cal-grid').addEventListener('click',function(e){
+    var b=e.target.closest('[data-day]'); if(!b||b.disabled)return;
+    picked=fromIso(b.dataset.day); $('q-err').hidden=true; renderCal();
+  });
+  $('cal-prev').addEventListener('click',function(){view=new Date(view.getFullYear(),view.getMonth()-1,1);renderCal();});
+  $('cal-next').addEventListener('click',function(){view=new Date(view.getFullYear(),view.getMonth()+1,1);renderCal();});
+
+  (function(){var h='';for(var t=7*60;t<=21*60;t+=30){var s=String(t/60|0).padStart(2,'0')+':'+String(t%60).padStart(2,'0');h+='<option'+(s==='14:00'?' selected':'')+'>'+s+'</option>';}$('q-time').innerHTML=h;})();
+
+  function renderBars(){
+    $('q-bars').innerHTML=BAR_KEYS.map(function(k){return '<button type="button" data-bar="'+k+'" aria-pressed="'+(qBars.indexOf(k)>-1)+'"><span class="drink">'+kindIcon(k)+'</span>'+BARS[k].name+'</button>';}).join('');
+  }
+  $('q-bars').addEventListener('click',function(e){
+    var b=e.target.closest('[data-bar]'); if(!b)return;
+    var k=b.dataset.bar, i=qBars.indexOf(k);
+    if(i>-1)qBars.splice(i,1);else qBars.push(k);
+    qBars.sort(function(a,b){return BAR_KEYS.indexOf(a)-BAR_KEYS.indexOf(b);});
+    renderBars(); renderQuote();
+  });
+  function renderQuote(){
+    var h=+$('q-hours').value, pp=perGuest(qBars), extra=Math.max(0,h-3)*EXTRA_HOUR;
+    $('cq').textContent=cq; $('cq-big').textContent=cq+' gäster';
+    $('cq-calc').textContent=qBars.length?'Uppskattat pris ('+cq+' × '+pp+' kr'+(extra?' + '+(h-3)+' h extra':'')+')':'Välj minst en bar';
+    $('cq-sum').textContent=qBars.length?kr(cq*pp+extra):'–';
+  }
+  $('cq-dec').addEventListener('click',function(){cq=Math.max(30,cq-10);renderQuote();});
+  $('cq-inc').addEventListener('click',function(){cq=Math.min(600,cq+10);renderQuote();});
+  $('q-hours').addEventListener('change',renderQuote);
+  function syncOcc(name){$('occasions').querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x.textContent===name);});}
+  $('occasions').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;$('q-occ').value=b.textContent;syncOcc(b.textContent);});
+  $('q-occ').addEventListener('change',function(){syncOcc(this.value);});
+  $('pk-grid').addEventListener('click',function(e){
+    var b=e.target.closest('[data-pk]'); if(!b)return;
+    qBars=b.dataset.pk.split(','); renderBars(); renderQuote();
+    $('cq-form').scrollIntoView({behavior:'smooth',block:'start'});
+    toast(barNames(qBars)+' vald i formuläret');
+  });
+
+  $('cq-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=$('q-err');
+    if(!qBars.length){err.textContent='Välj minst en bar.';err.hidden=false;return;}
+    if(!picked){err.textContent='Välj ett datum i kalendern.';err.hidden=false;return;}
+    err.hidden=true;
+    var ev={iso:iso(picked),who:$('q-name').value.trim(),occ:$('q-occ').value,g:cq,bars:qBars.slice(),time:$('q-time').value,h:+$('q-hours').value,addr:$('q-addr').value.trim(),phone:$('q-phone').value.trim(),mail:$('q-mail').value.trim(),note:$('q-msg').value.trim(),s:'Ny'};
+    var rows=[['Namn',ev.who],['Event',ev.occ],['Datum',longDate(picked)],['Tid','kl. '+ev.time+', '+ev.h+' timmar'],['Gäster',ev.g+' st'],['Bar',barNames(ev.bars)],['Uppskattat pris',kr(evPrice(ev))]];
+    $('cq-summary').innerHTML=rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd>';}).join('');
+    EVENTS.push(ev);
+    aSel=ev.iso; aView=new Date(picked.getFullYear(),picked.getMonth(),1);
+    renderAdmin();
+    $('cq-fields').hidden=true; $('cq-thanks').hidden=false;
+    paintDrinks($('cq-thanks'));
+    toast('Förfrågan skickad (demo)');
+  });
+  $('cq-new').addEventListener('click',function(){
+    $('cq-form').reset(); picked=null; cq=80; qBars=['kaffe','matcha','mocktail'];
+    $('q-time').value='14:00'; renderBars(); renderQuote(); renderCal(); syncOcc('Bröllop');
+    $('cq-fields').hidden=false; $('cq-thanks').hidden=true;
+  });
+
+  // ---------- Kaféet ----------
+  var CAFE={street:"Exempelgatan 12",zip:"123 45",city:"Staden",note:"Mitt emot parken. Ingång från gatan.",open:false,when:"Våren 2027"};
+  var HOURS=[
+    {d:"Måndag",o:"07:30",c:"17:00",x:false},{d:"Tisdag",o:"07:30",c:"17:00",x:false},{d:"Onsdag",o:"07:30",c:"17:00",x:false},
+    {d:"Torsdag",o:"07:30",c:"18:00",x:false},{d:"Fredag",o:"07:30",c:"18:00",x:false},{d:"Lördag",o:"09:00",c:"16:00",x:false},{d:"Söndag",o:"10:00",c:"15:00",x:true}
+  ];
+  function addrTxt(){return CAFE.street+', '+CAFE.zip+' '+CAFE.city;}
+  function renderCafe(){
+    var now=new Date(), wd=(now.getDay()+6)%7, hm=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+    $('hours').innerHTML=HOURS.map(function(h,i){var t=i===wd?' class="today"':'';return '<dt'+t+'>'+h.d+(i===wd?' (idag)':'')+'</dt><dd'+(h.x?' class="shut"':t)+'>'+(h.x?'Stängt':h.o+'–'+h.c)+'</dd>';}).join('');
+    var h=HOURS[wd], open=!h.x&&hm>=h.o&&hm<h.c, on=$('open-now');
+    on.textContent=open?'Öppet nu, till '+h.c:(h.x?'Stängt idag':(hm<h.o?'Öppnar idag kl. '+h.o:'Stängt för idag'));
+    on.className='open-now '+(open?'yes':'no');
+    var live=CAFE.open, when=CAFE.when||'snart';
+    if(!live){on.textContent='Öppnar '+when.toLowerCase();on.className='open-now soon-pill';}
+    $('cafe-hours').hidden=!live; $('cafe-soon').hidden=live; $('cafe-dir').hidden=!live;
+    $('cafe-h1').innerHTML=live?'Vårt <em>hem</em> mellan eventen':'Vårt eget kafé är <em>på gång</em>';
+    $('cafe-lead').textContent=live?'När vagnen står still står vi bakom disken i kaféet. Samma meny, ett par stolar och alltid något nytt att smaka.':'Snart får vagnen ett hem. Samma meny som på våra pop-ups, ett par stolar och alltid något nytt att smaka.';
+    $('cafe-menu-eb').textContent=live?'I kaféet idag':'Det här kommer finnas';
+    $('ways-cafe-h').textContent=live?'Kom förbi oss':'Snart öppnar vi kafé';
+    $('ways-cafe-a').textContent=live?'Öppettider och karta →':'Läs mer om kaféet →';
+    $('foot-cafe').textContent=live?'Öppettider →':'Öppnar '+when.toLowerCase()+' →';
+    $('pa-open').setAttribute('aria-checked',live);
+    $('pa-status-txt').textContent=live?'På: sidan visar öppettider':'Av: sidan visar "på gång"';
+    $('cafe-street').textContent=CAFE.street; $('cafe-city').textContent=CAFE.zip+' '+CAFE.city; $('cafe-note').textContent=CAFE.note;
+    $('map-label').textContent='Ditt företag · '+CAFE.street;
+    $('foot-addr').textContent=addrTxt();
+    var openDays=HOURS.filter(function(x){return !x.x;}).length;
+    $('ways-cafe').textContent=live?addrTxt()+'. '+(openDays===7?'Öppet alla dagar.':'Öppet '+openDays+' dagar i veckan.'):'Vårt eget kafé på '+CAFE.street+' öppnar '+when.toLowerCase()+'. Häng med på vägen dit!';
+    $('pa-preview').innerHTML='<b>'+esc(addrTxt())+'</b>'+(CAFE.note?'<br>'+esc(CAFE.note):'');
+  }
+  $('cafe-dir').addEventListener('click',function(){toast('Demo: här öppnas vägbeskrivningen i kartappen');});
+  function fillCafeForm(){
+    $('pa-when').value=CAFE.when;$('pa-street').value=CAFE.street;$('pa-zip').value=CAFE.zip;$('pa-city').value=CAFE.city;$('pa-note').value=CAFE.note;
+    $('hours-ed').innerHTML=HOURS.map(function(h,i){return '<div class="hrow'+(h.x?' off':'')+'" data-h="'+i+'"><b>'+h.d.slice(0,3)+'</b><input type="time" aria-label="'+h.d+' öppnar" value="'+h.o+'" data-ho="'+i+'" step="900"'+(h.x?' disabled':'')+'><span>–</span><input type="time" aria-label="'+h.d+' stänger" value="'+h.c+'" data-hc="'+i+'" step="900"'+(h.x?' disabled':'')+'><button type="button" class="switch" role="switch" aria-checked="'+(!h.x)+'" data-hx="'+i+'" aria-label="'+h.d+' öppet"></button></div>';}).join('');
+  }
+  $('addr-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    CAFE={street:$('pa-street').value.trim(),zip:$('pa-zip').value.trim(),city:$('pa-city').value.trim(),note:$('pa-note').value.trim(),open:$('pa-open').getAttribute('aria-checked')==='true',when:$('pa-when').value.trim()};
+    renderCafe(); toast(CAFE.open?'Sparat. Kaféet visas nu som öppet':'Sparat. Kaféet visas som på gång');
+  });
+  $('pa-open').addEventListener('click',function(){
+    var on=this.getAttribute('aria-checked')!=='true';
+    this.setAttribute('aria-checked',on);
+    $('pa-status-txt').textContent=on?'På: sidan visar öppettider (spara för att visa)':'Av: sidan visar "på gång" (spara för att visa)';
+  });
+  $('addr-form').addEventListener('input',function(){
+    $('pa-preview').innerHTML='<b>'+esc($('pa-street').value+', '+$('pa-zip').value+' '+$('pa-city').value)+'</b>'+($('pa-note').value?'<br>'+esc($('pa-note').value):'');
+  });
+  $('hours-ed').addEventListener('click',function(e){
+    var b=e.target.closest('[data-hx]'); if(!b)return;
+    var on=b.getAttribute('aria-checked')!=='true', row=b.closest('.hrow');
+    b.setAttribute('aria-checked',on); row.classList.toggle('off',!on);
+    row.querySelectorAll('input').forEach(function(x){x.disabled=!on;});
+  });
+  $('hours-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var next=[], bad='';
+    $('hours-ed').querySelectorAll('.hrow').forEach(function(r){
+      var i=+r.dataset.h, o=r.querySelector('[data-ho]').value, c=r.querySelector('[data-hc]').value, x=r.querySelector('[data-hx]').getAttribute('aria-checked')!=='true';
+      if(!x&&(!o||!c||o>=c))bad=bad||HOURS[i].d;
+      next.push({d:HOURS[i].d,o:o,c:c,x:x});
+    });
+    var err=$('hours-err');
+    if(bad){err.textContent=bad+': stängningstiden måste vara efter öppningstiden.';err.hidden=false;return;}
+    err.hidden=true; HOURS=next; renderCafe(); toast('Öppettiderna är sparade');
+  });
+
+  // ---------- Admin ----------
+  var aView=new Date(2026,10,1), aSel="2026-11-13";
+  function renderAdminCal(){
+    var y=aView.getFullYear(),m=aView.getMonth();
+    $('acal-month').textContent=cap(MONTHS[m])+' '+y;
+    var html=['Mån','Tis','Ons','Tor','Fre','Lör','Sön'].map(function(d){return '<span class="cal-dow">'+d+'</span>';}).join('');
+    var lead=(new Date(y,m,1).getDay()+6)%7, days=new Date(y,m+1,0).getDate();
+    for(var i=0;i<lead;i++)html+='<span></span>';
+    for(var d=1;d<=days;d++){
+      var dt=new Date(y,m,d), id=iso(dt), ev=evOn(id)[0], pop=POPS.some(function(p){return p.iso===id;}), cls='day';
+      if(ev)cls+=ev.s==='Bekräftad'?' ev-ok':(ev.s==='Ny'?' ev-new':' ev-quote');
+      if(pop)cls+=' ev-pop';
+      if(id===aSel)cls+=' asel';
+      if(id===iso(TODAY))cls+=' today';
+      html+='<button type="button" class="'+cls+'" data-aday="'+id+'" aria-label="'+longDate(dt)+(ev?', '+esc(ev.who)+', '+ev.s.toLowerCase():'')+(pop?', pop-up':'')+'"'+(id===aSel?' aria-pressed="true"':'')+'>'+d+'</button>';
+    }
+    $('acal-grid').innerHTML=html;
+  }
+  function renderEvent(){
+    var list=evOn(aSel), box=$('ev-detail'), pop=POPS.filter(function(p){return p.iso===aSel;})[0];
+    var popHtml=pop?'<div class="ev-note"><strong>Pop-up:</strong> '+esc(pop.place)+', kl. '+pop.from+'–'+pop.to+'</div>':'';
+    if(!list.length){box.innerHTML='<div class="ev-empty"><strong>'+longDate(fromIso(aSel))+'</strong>Inga event den här dagen.</div>'+popHtml;return;}
+    var e=list[0], idx=EVENTS.indexOf(e);
+    var btn=e.s==='Ny'?'<button class="btn btn-ink" data-evact="'+idx+'">Skicka offert</button>':(e.s==='Offert skickad'?'<button class="btn btn-sky" data-evact="'+idx+'">Markera som bekräftad</button>':'<button class="btn btn-ghost" disabled style="cursor:default">Bekräftad, klart att rulla</button>');
+    box.innerHTML='<div class="ev-head"><span class="pill '+EVCLS[e.s]+'">'+e.s+'</span><span class="muted">'+longDate(fromIso(e.iso))+'</span></div>'+
+      '<div><span class="eyebrow">'+esc(e.occ)+'</span><h2 class="ev-title">'+esc(e.who)+'</h2></div>'+
+      '<dl class="ev-dl">'+
+        '<dt>Tid</dt><dd>kl. '+esc(e.time)+', '+e.h+' timmar</dd>'+
+        '<dt>Plats</dt><dd>'+esc(e.addr||'–')+'</dd>'+
+        '<dt>Gäster</dt><dd>'+e.g+' st</dd>'+
+        '<dt>Bar</dt><dd>'+esc(barNames(e.bars))+'</dd>'+
+        '<dt>Telefon</dt><dd>'+esc(e.phone||'–')+'</dd>'+
+        '<dt>E-post</dt><dd>'+esc(e.mail||'–')+'</dd>'+
+      '</dl>'+
+      (e.note?'<div class="ev-note"><strong>Önskemål:</strong> '+esc(e.note)+'</div>':'')+popHtml+
+      '<div class="ev-sum"><span>'+e.g+' × '+perGuest(e.bars)+' kr'+(e.h>3?' + '+(e.h-3)+' h':'')+'</span><strong>'+kr(evPrice(e))+'</strong></div>'+btn;
+  }
+  function evRow(e,full){
+    var d=fromIso(e.iso);
+    return '<tr data-evsel="'+e.iso+'"'+(full&&e.iso===aSel?' class="sel"':'')+'><td>'+shortDate(d)+'</td><td><span class="cust">'+esc(e.who)+(full?'':'<small>'+esc(e.occ)+'</small>')+'</span></td>'+(full?'<td>'+esc(e.occ)+'</td>':'')+'<td class="num">'+e.g+'</td><td><span class="pill '+EVCLS[e.s]+'">'+e.s+'</span></td></tr>';
+  }
+  function renderAdmin(){
+    var sorted=EVENTS.slice().sort(function(a,b){return a.iso<b.iso?-1:1;});
+    var upcoming=sorted.filter(function(e){return e.iso>=iso(TODAY);});
+    $('ev-list').innerHTML=sorted.map(function(e){return evRow(e,true);}).join('');
+    $('recent').innerHTML=upcoming.slice(0,6).map(function(e){return evRow(e,false);}).join('')||'<tr><td colspan="4" style="color:var(--ink-soft)">Inga kommande event.</td></tr>';
+    var nNew=EVENTS.filter(function(e){return e.s==='Ny';}).length, conf=upcoming.filter(function(e){return e.s==='Bekräftad';});
+    $('ev-count').textContent=EVENTS.length+' event · '+nNew+(nNew===1?' ny':' nya');
+    $('req-count').textContent=nNew; $('req-count').hidden=!nNew;
+    $('kpi-new').textContent=nNew;
+    $('kpi-ev').textContent=conf.length; $('kpi-ev-sub').textContent=conf.reduce(function(a,e){return a+e.g;},0)+' gäster totalt';
+    $('kpi-val').textContent=kr(conf.reduce(function(a,e){return a+evPrice(e);},0));
+    var up=upcomingPops();
+    $('kpi-pop').textContent=up.length;
+    $('mini-pops').innerHTML=up.slice(0,4).map(function(p){var d=fromIso(p.iso);return '<li>'+dateBlock(d)+'<div><b>'+esc(p.place)+'</b><span>kl. '+p.from+'–'+p.to+' · '+esc(p.bars)+'</span></div></li>';}).join('')||'<li class="empty-note">Inga pop-ups inplanerade.</li>';
+    $('apops').innerHTML=up.map(function(p){var d=fromIso(p.iso);return '<li>'+dateBlock(d)+'<div><b>'+esc(p.place)+'</b><span>'+esc(p.area||'')+' · kl. '+p.from+'–'+p.to+'</span></div><button type="button" class="icon-btn" data-popdel="'+POPS.indexOf(p)+'" aria-label="Ta bort '+esc(p.place)+'" title="Ta bort">✕</button></li>';}).join('')||'<li class="empty-note" style="background:none">Inga pop-ups. Lägg till en så syns den på hemsidan.</li>';
+    $('pop-count').textContent=up.length+(up.length===1?' pop-up':' pop-ups');
+    renderAdminCal(); renderEvent();
+    $('mlist').innerHTML=C.length?C.map(function(d,i){
+      return '<div class="mrow">'+drinkTag(i)+'<span class="nm">'+esc(d.name)+(d.tag?' <span class="pill '+(d.tag==='Nyhet'?'s-ny':'s-ok')+'" style="margin-left:.3rem">'+d.tag+'</span>':'')+'<small>'+KIND[d.kind].label+' · '+d.price+' kr · '+esc(d.desc||'Ingen beskrivning')+'</small></span>'+
+        '<span class="sw-wrap"><span>'+(d.on?'Finns idag':'Slut idag')+'</span><button class="switch" role="switch" aria-checked="'+d.on+'" data-avail="'+i+'" aria-label="'+esc(d.name)+' finns idag"></button></span>'+
+        '<span class="m-actions"><button type="button" data-edit="'+i+'">Redigera</button><button type="button" class="del'+(armed===i?' arm':'')+'" data-del="'+i+'">'+(armed===i?'Bekräfta':'Ta bort')+'</button></span></div>';
+    }).join(''):'<p class="empty-note">Menyn är tom. Lägg till en drink.</p>';
+  }
+  function selectEvent(id){aSel=id;var d=fromIso(id);aView=new Date(d.getFullYear(),d.getMonth(),1);renderAdmin();}
+  $('acal-prev').addEventListener('click',function(){aView=new Date(aView.getFullYear(),aView.getMonth()-1,1);renderAdminCal();});
+  $('acal-next').addEventListener('click',function(){aView=new Date(aView.getFullYear(),aView.getMonth()+1,1);renderAdminCal();});
+  var armed=-1, armTimer;
+  $('admin').addEventListener('click',function(e){
+    var t;
+    if((t=e.target.closest('[data-aday]'))){selectEvent(t.dataset.aday);return;}
+    if((t=e.target.closest('[data-evsel]'))){selectEvent(t.dataset.evsel);adminTab('bokningar');return;}
+    if((t=e.target.closest('[data-evact]'))){var ev=EVENTS[+t.dataset.evact];ev.s=ev.s==='Ny'?'Offert skickad':'Bekräftad';renderAdmin();renderCal();toast(ev.who+': '+ev.s.toLowerCase());return;}
+    if((t=e.target.closest('[data-popdel]'))){var p=POPS.splice(+t.dataset.popdel,1)[0];renderPops();renderAdmin();toast(p.place+' är borttagen');return;}
+    if((t=e.target.closest('[data-avail]'))){var a=+t.dataset.avail;C[a].on=!C[a].on;renderAdmin();renderMenus();toast(C[a].name+(C[a].on?' finns igen':' visas nu som slut idag'));return;}
+    if((t=e.target.closest('[data-edit]'))){openEditor(+t.dataset.edit);return;}
+    if((t=e.target.closest('[data-del]'))){var di=+t.dataset.del;clearTimeout(armTimer);if(armed===di){armed=-1;var n=C.splice(di,1)[0].name;refreshDrinks();toast(n+' är borttagen från menyn');}else{armed=di;renderAdmin();armTimer=setTimeout(function(){armed=-1;renderAdmin();},4000);}return;}
+    if((t=e.target.closest('#add-drink'))){openEditor(-1);return;}
+    if((t=e.target.closest('[data-a],[data-a-go]'))){adminTab(t.dataset.a||t.dataset.aGo);return;}
+  });
+  function adminTab(name){
+    document.querySelectorAll('[data-apanel]').forEach(function(p){p.hidden=p.dataset.apanel!==name;});
+    document.querySelectorAll('#side-nav [data-a]').forEach(function(b){b.classList.toggle('on',b.dataset.a===name);});
+    window.scrollTo(0,0);
+  }
+
+  // ---------- Admin: pop-ups ----------
+  $('pp-date').value=iso(new Date(TODAY.getFullYear(),TODAY.getMonth(),TODAY.getDate()+14));
+  $('pp-date').min=iso(TODAY);
+  $('pop-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var err=$('pop-err'), f=$('pp-from').value, t=$('pp-to').value, d=$('pp-date').value;
+    if(!d||d<iso(TODAY)){err.textContent='Välj ett datum från idag och framåt.';err.hidden=false;return;}
+    if(!f||!t||f>=t){err.textContent='Sluttiden måste vara efter starttiden.';err.hidden=false;return;}
+    err.hidden=true;
+    var p={iso:d,place:$('pp-place').value.trim(),area:$('pp-area').value.trim()||CAFE.city,from:f,to:t,bars:$('pp-bars').value};
+    POPS.push(p); renderPops(); renderAdmin();
+    $('pp-place').value=''; $('pp-area').value='';
+    toast(p.place+' visas nu på hemsidan');
+  });
+
+  // ---------- Admin: menu editor ----------
+  var edIdx=-1, edImg=null, edAl=[];
+  function openEditor(i){
+    edIdx=i; var d=i>-1?C[i]:{name:'',kind:'matcha',style:'iced',c:'#A9C27A',desc:'',ingr:'',has:[],tag:'',price:60,img:null};
+    edImg=d.img||null; edAl=d.has.slice();
+    $('ed-title').textContent=i>-1?'Redigera '+d.name:'Ny drink';
+    $('ed-save').textContent=i>-1?'Spara ändringar':'Lägg till drinken';
+    $('ed-name').value=d.name; $('ed-kind').value=d.kind; $('ed-style').value=d.style; $('ed-color').value=d.c;
+    $('ed-desc').value=d.desc; $('ed-ingr').value=d.ingr; $('ed-tag').value=d.tag||''; $('ed-price').value=d.price;
+    $('ed-err').hidden=true; $('ed-file').value='';
+    renderEditorBits();
+    var dl=$('ed'); if(dl.showModal)dl.showModal(); else dl.setAttribute('open','');
+    $('ed-name').focus();
+  }
+  function closeEditor(){var dl=$('ed'); if(dl.close)dl.close(); else dl.removeAttribute('open');}
+  function renderEditorBits(){
+    $('ed-preview').innerHTML=edImg?'<img class="photo" src="'+edImg+'" alt="">':svgDrink($('ed-kind').value,$('ed-style').value,$('ed-color').value);
+    $('ed-al').innerHTML=ALL.map(function(a){return '<button type="button" data-al="'+a+'" aria-pressed="'+(edAl.indexOf(a)>-1)+'">'+a+'</button>';}).join('');
+  }
+  ['ed-kind','ed-style','ed-color'].forEach(function(id){$(id).addEventListener('input',function(){edImg=edImg&&id==='ed-color'?null:edImg;renderEditorBits();});});
+  $('ed-al').addEventListener('click',function(e){var b=e.target.closest('[data-al]');if(!b)return;var a=b.dataset.al,k=edAl.indexOf(a);if(k>-1)edAl.splice(k,1);else edAl.push(a);edAl.sort(function(x,y){return ALL.indexOf(x)-ALL.indexOf(y);});renderEditorBits();});
+  $('ed-file').addEventListener('change',function(){
+    var f=this.files&&this.files[0]; if(!f)return;
+    var r=new FileReader();
+    r.onload=function(){
+      var img=new Image();
+      img.onload=function(){
+        var s=Math.min(img.width,img.height), cv=document.createElement('canvas'); cv.width=cv.height=400;
+        var g=cv.getContext('2d'); g.beginPath(); g.arc(200,200,198,0,Math.PI*2); g.clip();
+        g.drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,400,400);
+        try{edImg=cv.toDataURL('image/webp',0.85);}catch(err){edImg=r.result;}
+        renderEditorBits();
+      };
+      img.src=r.result;
+    };
+    r.readAsDataURL(f);
+  });
+  $('ed-close').addEventListener('click',closeEditor);
+  $('ed-cancel').addEventListener('click',closeEditor);
+  $('ed').addEventListener('click',function(e){if(e.target===this)closeEditor();});
+  $('ed-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=$('ed-name').value.trim(), err=$('ed-err');
+    if(!name){err.textContent='Ge drinken ett namn.';err.hidden=false;return;}
+    if(C.some(function(c,i){return i!==edIdx&&c.name.toLowerCase()===name.toLowerCase();})){err.textContent='Det finns redan en drink som heter '+name+'.';err.hidden=false;return;}
+    var old=edIdx>-1?C[edIdx]:null;
+    var obj={name:name,kind:$('ed-kind').value,style:$('ed-style').value,c:$('ed-color').value,c2:old&&old.c===$('ed-color').value?old.c2:undefined,tag:$('ed-tag').value,price:Math.max(0,+$('ed-price').value||0),desc:$('ed-desc').value.trim(),ingr:$('ed-ingr').value.trim(),has:edAl.slice(),img:edImg,on:old?old.on:true};
+    if(old){C[edIdx]=obj;toast(name+' är uppdaterad');}else{C.push(obj);toast(name+' är tillagd i menyn');}
+    closeEditor(); refreshDrinks();
+  });
+  function refreshDrinks(){renderMenus();renderAdmin();}
+
+  // ---------- Global clicks ----------
+  document.addEventListener('click',function(e){
+    var t;
+    if((t=e.target.closest('[data-close-go]'))){closeInfo();route(t.dataset.closeGo);return;}
+    if((t=e.target.closest('[data-cal]'))){toast('Demo: '+t.dataset.cal+' sparas i din kalender');return;}
+    if((t=e.target.closest('[data-go]'))){
+      e.preventDefault();
+      if(t.dataset.filter)setFilter(t.dataset.filter);
+      else if(t.dataset.go==='meny')setFilter('alla');
+      if(t.dataset.occ){$('q-occ').value=t.dataset.occ;syncOcc(t.dataset.occ);}
+      route(t.dataset.go);
+      if(t.dataset.scroll){var target=$(t.dataset.scroll);setTimeout(function(){target.scrollIntoView({behavior:'smooth',block:'start'});},60);}
+      return;
+    }
+    if((t=e.target.closest('[data-open]'))){openInfo(+t.dataset.open);return;}
+  });
+  document.addEventListener('keydown',function(e){
+    var open=e.target.closest&&e.target.closest('[data-open]');
+    if(open&&e.target===open&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openInfo(+open.dataset.open);}
+  });
+
+  // ---------- Router ----------
+  var VIEWS=['hem','meny','pop-ups','event','kafeet','om-oss','admin'];
+  function route(v){
+    if(VIEWS.indexOf(v)<0)v='hem';
+    var isAdmin=v==='admin';
+    $('site').hidden=isAdmin; $('admin').hidden=!isAdmin;
+    document.querySelectorAll('.view').forEach(function(s){s.hidden=s.dataset.view!==v;s.classList.remove('enter');});
+    var cur=document.querySelector('.view[data-view="'+v+'"]'); if(cur){void cur.offsetWidth;cur.classList.add('enter');clearTimeout(route.t);route.t=setTimeout(function(){cur.classList.remove('enter');},1600);}
+    document.querySelectorAll('.navlinks a').forEach(function(a){a.classList.toggle('on',a.dataset.go===v);});
+    try{history.replaceState(null,'','#'+v);}catch(err){}
+    window.scrollTo(0,0);
+  }
+
+  // ---------- Boot ----------
+  var HERO=[0,6,8];
+  document.querySelectorAll('[data-hero]').forEach(function(el){el.innerHTML=drinkArt(HERO[+el.dataset.hero]);});
+  paintDrinks();
+  renderMenus(); renderPops(); renderBars(); renderQuote(); renderCal(); fillCafeForm(); renderCafe(); renderAdmin();
+  var start='hem'; try{start=(location.hash||'').slice(1)||'hem';}catch(err){}
+  route(start);
+  window.addEventListener('hashchange',function(){try{route(location.hash.slice(1));}catch(err){}});
+})();
+</script>
